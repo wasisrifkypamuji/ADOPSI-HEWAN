@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+.search-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.search-bar input {
+    padding: 10px;
+    margin: 5px;
+    width: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: orange;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pet-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px auto;
+    width: 90%;
+}
+
+.pet-card {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    width: 180px;
+    text-align: center;
+    padding: 10px;
+}
+
+.pet-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.pet-name {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.pet-card a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #333;
+    margin: 0 5px;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.pagination a.active,
+.pagination a:hover {
+    background-color: orange;
+    color: #fff;
+}
+
+footer {
+    background-color: #e8e8e8;
+    padding: 20px 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer h3 {
+    margin-bottom: 10px;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.bg-secondary {
+    background-color: #d1d1d1 !important;
+}
+
+.btn-warning {
+    background-color: #ff7f2a;
+    color: #fff;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e76c1e;
+}
+
+input::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+.pagination-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-arrow {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+.btn-arrow:hover {
+    color: gray;
+}
+
+.page-number {
+    display: inline-block;
+    margin: 10 px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.page-number.active {
+    background-color: #d1d1d1;
+    border-radius: 5px;
+    
+}
+
+.page-number:hover {
+    color: gray;
+}
