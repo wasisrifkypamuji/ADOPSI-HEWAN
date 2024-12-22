@@ -1,0 +1,263 @@
+.navbar{
+    background-color: #78B3CE;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    .navbar .nav-link:hover {
+    background-color: #C9E6F0;
+    color: #78B3CE;
+    }
+    
+    .nav-button {
+    position: absolute;
+    top: 50%;
+    background-color: #F96E2A;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    }
+    
+    .left-button {
+    left: -10px;  
+    }
+    
+    .right-button {
+    right: -10px;
+    }
+    
+    .bg-gray {
+    margin-top: 50px;
+    background-color: #726868;   
+    padding: 30px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    }
+    
+    
+    .navbar-brand{
+    padding-right: 100px;
+    }
+    .navbar .nav-link {
+    color: white; 
+    }
+    .btn-nav{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    background-color: #F96E2A;
+    }
+    
+    .btn-nav:hover{
+    background-color: #e46a2e;
+    color: white;
+    }
+    
+    .navbar-nav {
+    justify-content: left; 
+    gap: 20px; 
+    }
+    
+    .nav-item .btn {
+    justify-items: right;
+    }
+    
+
+    .profile-icon img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .btn-card {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: black;
+    }
+
+    .btn-card:hover{
+        color: #a2a2a2;
+    }
+
+    /* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 50px;
+    background-color: #EAEDED;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.hero .content {
+    max-width: 50%;
+}
+
+.hero .content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.hero .content p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.cta-button {
+    background-color: #F96E2A;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #E5532D;
+    color: white;
+}
+
+.hero-image img {
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+    
+    .card{
+    height: 100%;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        top: 35%;
+        width: auto;
+        height: 20%;
+        background-color: #F96E2A;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 30px; 
+        height: 30px; 
+        background-size: contain; 
+        pointer-events: auto;
+    }
+    
+    .hero-section {
+        background-color: #f5f5f5;
+        padding: 50px 20px;
+        text-align: center;
+    }
+    
+    .pet-card img {
+        height: 150px;
+        object-fit: cover;
+    }
+    .accordion{
+        width: 80%;
+        justify-content: center;
+    }
+
+    .accordion-wrapper {
+        display: flex;
+        justify-content: center; /* Memusatkan secara horizontal */
+        align-items: center; /* Memusatkan secara vertikal */
+    }
+    .accordion-button {
+        background-color: #f8f9fa;
+    }
+    
+
+    .komentar textarea {
+        height: 150px;
+    }
+    .comment-box {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .comment-box img {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* Tombol Kirim */
+    .btn-kirim {
+    background-color: #F96E2A;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    }
+
+    .btn-kirim:hover {
+    background-color: #E5532D;
+    }
+    
+    .btn-balas {
+    background-color: #F96E2A;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    }
+
+    .btn-balas:hover {
+    background-color: #E5532D;
+    }
+
+    .btn-hapus {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    }
+
+    .btn-hapus:hover {
+    background-color: #af0000;
+    }
+
+/* Footer Styles */
+.footer {
+    background-color: #87c4dd; /* Warna biru sesuai gambar */
+    padding: 20px 0;
+    color: black;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around; /* Menyebarkan elemen secara horizontal */
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h3 {
+    font-weight: bold; /* Gaya tebal untuk judul */
+    margin-bottom: 10px;
+}
+
+.footer-section ul {
+    list-style: none; /* Menghilangkan bullet */
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section a {
+    text-decoration: none; /* Menghilangkan garis bawah */
+    color: black; /* Warna teks */
+    transition: color 0.3s ease; /* Animasi transisi untuk hover */
+}
+
+.footer-section a:hover {
+    color: #0056b3; /* Warna teks saat hover */
+}
+    
