@@ -44,8 +44,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="no_telpon" class="form-label">No Telpon</label>
-                                <input type="number" id="no_telpon" name="no_telpon" class="form-control" placeholder="Enter your phone number" required>
+                                <label for="no_telepon" class="form-label">No Telpon</label>
+                                <input type="number" id="no_telepon" name="no_telepon" class="form-control" placeholder="Enter your phone number" required>
                             </div>
 
                             <div class="mb-3">

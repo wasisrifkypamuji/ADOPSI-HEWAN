@@ -2,28 +2,36 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract; 
-class User extends Model
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class User extends Authenticatable
 {
-    use HasFactory;
-
-    protected $table = 'user';
-
+    protected $primaryKey = 'user_id';
+    
     protected $fillable = [
-        'email', 
-        'nama_lengkap',
-        'username', 
-        'no_telpon', 
-        'alamat', 
-        'media_sosial', 
-        'usia', 
-        'pekerjaan', 
-        'password',
+        'username', 'email', 'nama_lengkap', 'no_telepon', 
+        'alamat', 'media_sosial', 'usia', 'pekerjaan', 'password'
     ];
-    protected $hidden = ['password'];
+
+    public function adopsi()
+    {
+        return $this->hasMany(Adopsi::class, 'user_id');
+    }
+
+    public function komen()
+    {
+        return $this->hasMany(Komen::class, 'user_id');
+    }
+
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class, 'user_id');
+    }
+
+    public function kirimHewan()
+    {
+        return $this->hasMany(KirimHewan::class, 'user_id');
+    }
 }

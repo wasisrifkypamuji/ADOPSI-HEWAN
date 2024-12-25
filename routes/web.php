@@ -10,7 +10,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('signup', [UserController::class, 'showSignupForm'])->name('signup.form');
 Route::post('signup', [UserController::class, 'handleSignup'])->name('signup');
-Route::resource('user', UserController::class);
+Route::resource('users', UserController::class);
 Route::get('/', function () {
     return view('welcome');
 });

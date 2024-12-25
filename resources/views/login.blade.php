@@ -25,20 +25,40 @@
                         <p class="text-muted" style="text-align: center;">Don't have an account? <a href="{{ route('signup') }}" class="text-primary">Sign up</a></p>
 
                         <form action="{{ route('login') }}" method="POST">
-                            @csrf 
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
-                            </div>
-                            <div class="d-grid">
-                                <p class="text-muted" style="text-align: right;"><a href="" class="text-primary">Forget your password</a></p>
-                                <button type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                        </form>
+    @csrf 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter your Email" required>
+        @error('email')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your password" required>
+        @error('password')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+    <div class="d-grid">
+        <p class="text-muted text-end"><a href="" class="text-primary">Forget your password</a></p>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+</form>
+
                     </div>
                 </div>
             </div>
