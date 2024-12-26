@@ -1,0 +1,130 @@
+.navbar {
+    background-color: #78B3CE; /* Warna latar belakang navbar */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Jenis font untuk navbar */
+}
+
+.navbar .nav-link:hover {
+    background-color: #C9E6F0; /* Warna latar belakang saat hover pada link navbar */
+    color: #78B3CE; /* Warna teks saat hover pada link navbar */
+}
+
+.nav-button {
+    position: absolute; /* Posisi tombol secara absolut */
+    top: 50%; /* Menempatkan tombol di tengah vertikal */
+    background-color: #F96E2A; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border tombol */
+    padding: 10px 15px; /* Padding dalam tombol */
+    cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
+}
+
+.navbar-brand {
+    padding-right: 100px; /* Padding kanan untuk brand navbar */
+}
+
+.navbar .nav-link {
+    color: white; /* Warna teks untuk link navbar */
+}
+
+.btn-nav {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Jenis font untuk tombol navigasi */
+    color: white; /* Warna teks tombol navigasi */
+    background-color: #F96E2A; /* Warna latar belakang tombol navigasi */
+}
+
+.btn-nav:hover {
+    background-color: #e46a2e; /* Warna latar belakang saat hover pada tombol navigasi */
+    color: white; /* Warna teks tetap putih saat hover */
+}    
+
+.navbar-nav {
+    justify-content: left; /* Menyusun item navbar ke kiri */
+    gap: 20px; /* Jarak antar item navbar */
+}
+
+.nav-item .btn {
+    justify-items: right; /* Menyusun tombol di dalam item navbar ke kanan */
+}
+
+.findpet-section, .costumer-section {
+    text-align: left;
+    padding: 0 20px;
+}
+
+h3 {
+    margin-bottom: 15px;
+}
+
+
+/* CSS untuk memastikan footer selalu di bawah */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1; /* Membuat konten mengisi ruang yang tersedia */
+}
+
+.footer {
+    background-color: #78B3CE; /* Warna latar belakang footer */
+    padding: 20px; /* Padding untuk footer */
+    text-align: center; /* Rata tengah teks di footer */
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.col-md-4 {
+    width: 32%;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.btn-accept {
+    background-color: rgb(10, 244, 10);
+}
+.btn-process{
+    background-color: red; 
+}

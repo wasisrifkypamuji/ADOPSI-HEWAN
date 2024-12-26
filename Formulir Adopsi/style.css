@@ -1,0 +1,133 @@
+.navbar {
+    background-color: #78B3CE; /* Warna latar belakang navbar */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Jenis font untuk navbar */
+}
+
+.navbar .nav-link:hover {
+    background-color: #C9E6F0; /* Warna latar belakang saat hover pada link navbar */
+    color: #78B3CE; /* Warna teks saat hover pada link navbar */
+}
+
+.nav-button {
+    position: absolute; /* Posisi tombol secara absolut */
+    top: 50%; /* Menempatkan tombol di tengah vertikal */
+    background-color: #F96E2A; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border tombol */
+    padding: 10px 15px; /* Padding dalam tombol */
+    cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
+}
+
+.navbar-brand {
+    padding-right: 100px; /* Padding kanan untuk brand navbar */
+}
+
+.navbar .nav-link {
+    color: white; /* Warna teks untuk link navbar */
+}
+
+.btn-nav {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Jenis font untuk tombol navigasi */
+    color: white; /* Warna teks tombol navigasi */
+    background-color: #F96E2A; /* Warna latar belakang tombol navigasi */
+}
+
+.btn-nav:hover {
+    background-color: #e46a2e; /* Warna latar belakang saat hover pada tombol navigasi */
+    color: white; /* Warna teks tetap putih saat hover */
+}    
+
+.navbar-nav {
+    justify-content: left; /* Menyusun item navbar ke kiri */
+    gap: 20px; /* Jarak antar item navbar */
+}
+
+.nav-item .btn {
+    justify-items: right; /* Menyusun tombol di dalam item navbar ke kanan */
+}
+
+.container {
+    width: 100%; /* Lebar kontainer 100% */
+    margin: 0 auto; /* Margin otomatis untuk pusatkan kontainer */
+}
+
+.question {
+    margin-bottom: 10px; /* Jarak bawah untuk elemen pertanyaan */
+}
+
+.form-control,
+.form-select {
+    background-color: #8b8b8b; /* Warna latar belakang untuk input dan select */
+    border: 1px solid #ccc; /* Border untuk input dan select */
+    color: white; /* Warna teks default untuk input dan select */
+
+}
+
+/* Mengubah warna teks menjadi putih saat input atau select difokuskan atau valid */
+.form-control:focus,
+.form-select:focus,
+.form-control:valid,
+.form-select:valid {
+    color: white; /* Warna teks tetap putih saat fokus atau valid */
+    background-color: #8b8b8b; /* Warna latar belakang tetap sama */
+}
+
+.checkbox-group {
+    margin-bottom: 20px; /* Jarak bawah untuk grup checkbox */
+}
+
+.checkbox {
+    margin-bottom: 5px; /* Jarak bawah untuk setiap checkbox */
+}
+
+.btn-send {
+    padding: 10px 20px; /* Padding untuk tombol kirim */
+    background-color: #F96E2A; /* Warna latar belakang tombol kirim */
+    color: white; /* Warna teks tombol kirim */
+    border: none; /* Menghilangkan border tombol kirim */
+    border-radius: 4px; /* Membuat sudut tombol kirim melengkung */
+    cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
+}
+
+.btn-send:hover {
+    background-color: #e46a2e; /* Warna latar belakang saat hover pada tombol kirim */
+    
+}
+
+.upload-button {
+    padding: 10px 20px; /* Padding untuk tombol upload */
+    background-color: #4CAF50; /* Warna latar belakang tombol upload */
+    color: white; /* Warna teks tombol upload */
+    border: none; /* Menghilangkan border tombol upload */
+    border-radius: 4px; /* Membuat sudut tombol upload melengkung */
+    cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
+    margin-top: 0px; /* Margin atas untuk tombol upload */
+}
+
+.upload-button:hover {
+    background-color: #3e8e41; /* Warna latar belakang saat hover pada tombol upload */
+}
+
+footer {
+    background-color: #78B3CE; /* Warna latar belakang footer */
+    color: #000000;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.findpet-section, .costumer-section {
+    text-align: left;
+    padding: 0 20px;
+}
+
+h3 {
+    margin-bottom: 15px;
+}
