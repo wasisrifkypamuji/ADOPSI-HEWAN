@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Login berhasil
-            return back()->withErrors(['email' => 'berhasil login cuyyyyyyyyyyyyyy']);
+            return redirect()->intended('homeuser'); 
         } else {
             // Login gagal
             return back()->withErrors(['email' => 'Invalid email or password.']);
