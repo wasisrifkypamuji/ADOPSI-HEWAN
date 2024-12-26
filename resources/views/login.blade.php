@@ -6,6 +6,14 @@
     <title>Login Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/stylesignup.css') }}">
+    <style>
+    body {
+        background-image: url('{{ asset('css/Images/bglogin.webp') }}');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
     <div class="container">
