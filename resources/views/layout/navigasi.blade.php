@@ -38,7 +38,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url('/homeuser') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Adopsi</a></li>
         <li class="nav-item"><a class="nav-link" href="#">AdopsiMu</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Donasi Hewan</a></li>

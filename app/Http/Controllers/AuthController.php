@@ -16,23 +16,37 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string',
+            'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $credentials = $request->only('email', 'password');
-
+        $credentials = $request->only('username', 'password');
+        //login atmin
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $request->session()->regenerate();
+            //GANTIIIII login admin ke homeadmin
+            return back()->withErrors(['username' => 'yey login admin berhasil']);
+        }
         if (Auth::attempt($credentials)) {
             // Login berhasil
             return redirect()->intended('homeuser'); 
         } else {
             // Login gagal
-            return back()->withErrors(['email' => 'Invalid email or password.']);
+            return back()->withErrors(['username' => 'Invalid username or password.']);
         }
     }
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout(); 
-        return redirect()->route('login.form');
-    }
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        } else {
+            Auth::guard('web')->logout();
+        
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+}
+}
 }
