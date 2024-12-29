@@ -41,7 +41,7 @@
         <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Adopsi</a></li>
         <li class="nav-item"><a class="nav-link" href="#">AdopsiMu</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Donasi Hewan</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('donasi.index') }}">Donasi Hewan</a></li>
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><button class="btn-nav me-2" onclick="location.href='{{ route('signup') }}'">SignUp</button></li>
