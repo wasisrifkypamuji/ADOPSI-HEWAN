@@ -37,16 +37,17 @@ class AuthController extends Controller
     }
     public function logout(Request $request)
     {
+        // Logout admin jika login menggunakan guard 'admin'
         if (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
         } else {
+            // Logout pengguna biasa
             Auth::guard('web')->logout();
-        
+        }
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect('/login');
-}
-}
+    }
 }
