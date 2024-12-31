@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\homeusercontrol;
-
+use App\Http\Controllers\KirimHewanController;
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -30,3 +30,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         return view('admin.homeadmin');
     })->name('admin.homeadmin');
 });
+
+//route donasi
+Route::get('/donasi', [KirimHewanController::class, 'index'])->name('donasi.index');
+Route::get('/donasi/create', [KirimHewanController::class, 'create'])->name('donasi.create');
+Route::post('/donasi', [KirimHewanController::class, 'store'])->name('donasi.store');
+Route::get('/donasi/{id}', [KirimHewanController::class, 'show'])->name('donasi.show');
+Route::delete('/donasi/{id}/batalkan', [KirimHewanController::class, 'batalkan'])->name('donasi.batalkan');
+

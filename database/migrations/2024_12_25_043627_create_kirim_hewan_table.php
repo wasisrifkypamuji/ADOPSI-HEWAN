@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('kirim_hewan', function (Blueprint $table) {
+        Schema::create('kirim_hewans', function (Blueprint $table) {
             $table->bigIncrements('id_kirim');  // Custom primary key
             $table->unsignedBigInteger('id_admin');
             $table->unsignedBigInteger('user_id');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('surat_perjanjian');
             $table->text('surat_keterangan_sehat');
             $table->timestamps();
-
+            $table->enum('status', ['proses', 'selesai'])->default('proses');
             $table->foreign('id_admin')
                   ->references('id_admin')
                   ->on('admin')
@@ -42,6 +42,12 @@ return new class extends Migration
         });
     }
 
+/*************  ✨ Codeium Command ⭐  *************/
+    /**
+     * Reverse the migrations.
+     *
+     * Drops the 'kirim_hewan' table if it exists.
+/******  04b3c7fe-8125-4315-97fb-3ccfc777490a  *******/
     public function down()
     {
         Schema::dropIfExists('kirim_hewan');
