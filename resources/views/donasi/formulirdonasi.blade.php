@@ -96,7 +96,30 @@
                     </div>
                 </div>
             </div>
+                        
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
 
+            @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <!-- Form Donasi -->
             <form action="{{ route('donasi.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -250,6 +273,14 @@
                 }
             });
         });
+
+        
+        document.querySelector('form').addEventListener('submit', function(e) {
+            // Disable submit button
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Mengirim...';
+        });
     </script>
 
     <style>
@@ -271,6 +302,30 @@
         .accordion-button:not(.collapsed) {
             background-color: #e8f4ff;
             color: black;
+        }
+
+        /* Tambahkan di bagian style formulirdonasi.blade.php */
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+        }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .alert-dismissible {
+            padding-right: 4rem;
         }
     </style>
     @endsection

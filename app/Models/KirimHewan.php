@@ -8,13 +8,25 @@ class KirimHewan extends Model
 {
     protected $table = 'kirim_hewans';
     protected $primaryKey = 'id_kirim';
+    public $timestamps = true;
     
     protected $fillable = [
-        'id_admin', 'user_id', 'id_kategori', 'nama_kategori', 
-        'nama_lengkap', 'nama_hewan', 'deskripsi', 'usia', 
-        'gender', 'foto', 'video', 'surat_perjanjian', 
-        'surat_keterangan_sehat', 'status'
+        'id_admin', 
+        'user_id', 
+        'id_kategori', 
+        'nama_kategori',
+        'nama_lengkap', 
+        'nama_hewan', 
+        'deskripsi', 
+        'usia',
+        'gender', 
+        'foto', 
+        'video', 
+        'surat_perjanjian',
+        'surat_keterangan_sehat', 
+        'status'
     ];
+
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'id_admin');
@@ -27,9 +39,7 @@ class KirimHewan extends Model
 
     public function kategori()
     {
-    return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
     }
-
-    
 }
 

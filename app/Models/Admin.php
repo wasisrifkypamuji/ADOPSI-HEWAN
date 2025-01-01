@@ -30,4 +30,10 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Adopsi::class, 'id_admin');
     }
+
+    // Di Model Admin, tambahkan:
+    public function kirimHewan()
+    {
+        return $this->hasMany(KirimHewan::class, 'id_admin');
+    }
 }
