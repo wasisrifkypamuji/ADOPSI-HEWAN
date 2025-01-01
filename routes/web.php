@@ -27,8 +27,8 @@ Route::get('/homeuser', function () {
 // Admin routes
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/homeadmin', function () {
-        return view('admin.homeadmin');
-    })->name('admin.homeadmin');
+        return view('homeadmin');
+    })->name('homeadmin');
 });
 
 //route donasi
