@@ -25,7 +25,7 @@ class AuthController extends Controller
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
             //GANTIIIII login admin ke homeadmin
-            return back()->withErrors(['username' => 'yey login admin berhasil']);
+            return redirect()->intended('/admin/homeadmin'); 
         }
         if (Auth::attempt($credentials)) {
             // Login berhasil
