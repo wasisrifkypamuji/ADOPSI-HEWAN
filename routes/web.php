@@ -38,3 +38,10 @@ Route::post('/donasi', [KirimHewanController::class, 'store'])->name('donasi.sto
 Route::get('/donasi/{id}', [KirimHewanController::class, 'show'])->name('donasi.show');
 Route::delete('/donasi/{id}/batalkan', [KirimHewanController::class, 'batalkan'])->name('donasi.batalkan');
 
+// Routes untuk AccDonasi
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/acc-donasi', [AccDonasiController::class, 'index'])->name('acc-donasi.index');
+    Route::get('/admin/acc-donasi/{id}', [AccDonasiController::class, 'show'])->name('acc-donasi.show');
+    Route::post('/admin/acc-donasi/{id}/approve', [AccDonasiController::class, 'approve'])->name('acc-donasi.approve');
+    Route::post('/admin/acc-donasi/{id}/reject', [AccDonasiController::class, 'reject'])->name('acc-donasi.reject');
+});
