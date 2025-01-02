@@ -8,6 +8,11 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+    public function getUserId()
+{
+    return Auth::id();
+}
+
     public function showLoginForm()
     {
         return view('login');  

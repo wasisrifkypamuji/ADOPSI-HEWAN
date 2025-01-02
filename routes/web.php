@@ -7,6 +7,8 @@ use App\Http\Controllers\homeusercontrol;
 use App\Http\Controllers\KirimHewanController;
 use App\Http\Controllers\AdopsiController;
 use App\Http\Controllers\AdminHewanController;
+use App\Http\Controllers\LaporanController;
+
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -24,6 +26,7 @@ Route::get('/homeuser', function () {
     return view('homeuser');
 })->name('homeuser');
 
+Route::get('/historilaporan/{id_adopsi}', [LaporanController::class, 'index'])->name('historilaporan');
 
 
 // Admin routes
