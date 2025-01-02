@@ -96,7 +96,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Adopsi</a></li>
+        <a class="nav-link" href="{{ route('adopsi.index') }}">Adopsi</a>
         <li class="nav-item"><a class="nav-link" href="#">AdopsiMu</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('donasi.index') }}">Donasi Hewan</a></li>
       </ul>

@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\homeusercontrol;
 use App\Http\Controllers\KirimHewanController;
+use App\Http\Controllers\AdopsiController;
+use App\Http\Controllers\AdminHewanController;
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -29,6 +31,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/homeadmin', function () {
         return view('homeadmin');
     })->name('homeadmin');
+    // routes tambah hewan
+    Route::get('/tambah-hewan', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
+    Route::post('/kategori', [AdminHewanController::class, 'storeKategori'])->name('admin.kategori.store');
+    Route::delete('/kategori/{id}', [AdminHewanController::class, 'deleteKategori'])->name('admin.kategori.delete');
+    Route::post('/hewan', [AdminHewanController::class, 'storeHewan'])->name('admin.hewan.store');
 });
 
 //route donasi
@@ -45,3 +52,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/admin/acc-donasi/{id}/approve', [AccDonasiController::class, 'approve'])->name('acc-donasi.approve');
     Route::post('/admin/acc-donasi/{id}/reject', [AccDonasiController::class, 'reject'])->name('acc-donasi.reject');
 });
+
+// routes untuk adopsi
+Route::get('/adopsi', [AdopsiController::class, 'index'])->name('adopsi.index');
+Route::get('/adopsi/{id}', [AdopsiController::class, 'show'])->name('adopsi.show');

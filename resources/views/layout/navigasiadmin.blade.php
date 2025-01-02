@@ -97,7 +97,9 @@
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link" href="{{ url('/admin/homeadmin') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Adopsi</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Tambah Hewan</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('admin.tambah-hewan') }}">Tambah Hewan</a>
+        </li>
         <li class="nav-item"><a class="nav-link" href="#">Permintaan Adopsi</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Riwayat Adopsi</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Permintaan Donasi Hewan</a></li>
