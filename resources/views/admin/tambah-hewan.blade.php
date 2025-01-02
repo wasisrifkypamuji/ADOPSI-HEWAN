@@ -85,7 +85,10 @@
 
                         <div class="mb-3">
                             <label class="form-label">Foto</label>
-                            <input type="file" name="foto" class="form-control" accept="image/*" required>
+                            <input type="file" name="foto" id="foto" class="form-control" accept="image/*" required onchange="previewImage(this)">
+                            <div class="mt-2">
+                                <img id="preview" src="#" alt="Preview" class="img-thumbnail" style="max-height: 200px; display: none;">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,4 +101,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    function previewImage(input) {
+        const preview = document.getElementById('preview');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '#';
+            preview.style.display = 'none';
+        }
+    }
+    </script>
 @endsection
