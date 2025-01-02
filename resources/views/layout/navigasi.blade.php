@@ -80,6 +80,11 @@
       height: 40px;
       margin: 5px;
     }
+
+    .content-wrapper {
+   margin-left: 50px;
+   margin-right: 50px;
+}
   </style>
 </head>
 <body>
