@@ -66,4 +66,44 @@ class AdminHewanController extends Controller
 
         return redirect()->back()->with('success', 'Hewan berhasil ditambahkan');
     }
+
+        public function store(Request $request)
+    {
+        try {
+            // Check if hewan already exists
+            $exists = Hewan::where('nama_hewan', $request->nama_hewan)
+                        ->where('foto', $request->foto)
+                        ->exists();
+                        
+            if ($exists) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Hewan ini sudah ada dalam daftar adopsi');
+            }
+
+            // Proceed with creating new hewan
+            $hewan = Hewan::create([
+                'id_admin' => Auth::guard('admin')->id(),
+                'id_kategori' => $request->id_kategori,
+                'nama_kategori' => $request->nama_kategori,
+                'nama_hewan' => $request->nama_hewan,
+                'umur' => $request->umur,
+                'gender' => $request->gender,
+                'ras' => '-', // Sesuaikan dengan kebutuhan
+                'deskripsi' => $request->deskripsi,
+                'foto' => $request->foto,
+                'status_adopsi' => $request->status_adopsi
+            ]);
+
+            return redirect()
+                ->back()
+                ->with('success', 'Hewan berhasil ditambahkan ke daftar adopsi');
+                
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Gagal menambahkan hewan: ' . $e->getMessage());
+        }
+    }
+
 }

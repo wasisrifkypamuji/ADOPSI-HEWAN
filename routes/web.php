@@ -8,6 +8,7 @@ use App\Http\Controllers\KirimHewanController;
 use App\Http\Controllers\AdopsiController;
 use App\Http\Controllers\AdminHewanController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\AccDonasiController;
 
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
@@ -39,23 +40,35 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/kategori', [AdminHewanController::class, 'storeKategori'])->name('admin.kategori.store');
     Route::delete('/kategori/{id}', [AdminHewanController::class, 'deleteKategori'])->name('admin.kategori.delete');
     Route::post('/hewan', [AdminHewanController::class, 'storeHewan'])->name('admin.hewan.store');
+    //routes acc donasi
+    Route::get('/acc-donasi', [AccDonasiController::class, 'index'])->name('acc-donasi.index');
+    Route::get('/acc-donasi/{id}', [AccDonasiController::class, 'show'])->name('acc-donasi.show');
+    Route::post('/acc-donasi/{id}/approve', [AccDonasiController::class, 'approve'])->name('acc-donasi.approve');
+    Route::post('/acc-donasi/{id}/reject', [AccDonasiController::class, 'reject'])->name('acc-donasi.reject');
+    Route::post('/hewan/store', [AdminHewanController::class, 'store'])->name('admin.hewan.store');
+    Route::get('/acc-donasi/{id}/download-bukti', [AccDonasiController::class, 'downloadBukti'])
+        ->name('acc-donasi.download-bukti');
+    Route::get('/acc-donasi/{id}/status', [AccDonasiController::class, 'checkDonationStatus'])
+        ->name('acc-donasi.status');
+    Route::post('/acc-donasi/{id}/update-upload-status', [AccDonasiController::class, 'updateUploadStatus'])
+        ->name('acc-donasi.update-upload-status');
+        Route::post('/acc-donasi/{id}/complete', [AccDonasiController::class, 'markAsCompleted'])->name('acc-donasi.complete');
 });
 
 //route donasi
-Route::get('/donasi', [KirimHewanController::class, 'index'])->name('donasi.index');
-Route::get('/donasi/create', [KirimHewanController::class, 'create'])->name('donasi.create');
-Route::post('/donasi', [KirimHewanController::class, 'store'])->name('donasi.store');
-Route::get('/donasi/{id}', [KirimHewanController::class, 'show'])->name('donasi.show');
-Route::delete('/donasi/{id}/batalkan', [KirimHewanController::class, 'batalkan'])->name('donasi.batalkan');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/donasi', [KirimHewanController::class, 'index'])->name('donasi.index');
+    Route::get('/donasi/create', [KirimHewanController::class, 'create'])->name('donasi.create');
+    Route::post('/donasi', [KirimHewanController::class, 'store'])->name('donasi.store');
+    Route::delete('/donasi/{id}/batalkan', [KirimHewanController::class, 'batalkan'])->name('donasi.batalkan');
 
-// Routes untuk AccDonasi
-Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/admin/acc-donasi', [AccDonasiController::class, 'index'])->name('acc-donasi.index');
-    Route::get('/admin/acc-donasi/{id}', [AccDonasiController::class, 'show'])->name('acc-donasi.show');
-    Route::post('/admin/acc-donasi/{id}/approve', [AccDonasiController::class, 'approve'])->name('acc-donasi.approve');
-    Route::post('/admin/acc-donasi/{id}/reject', [AccDonasiController::class, 'reject'])->name('acc-donasi.reject');
+    Route::get('/acc-donasi/{id}/bukti-terima', [AccDonasiController::class, 'buktiTerima'])
+        ->name('acc-donasi.bukti-terima');
 });
+
 
 // routes untuk adopsi
 Route::get('/adopsi', [AdopsiController::class, 'index'])->name('adopsi.index');
 Route::get('/adopsi/{id}', [AdopsiController::class, 'show'])->name('adopsi.show');
+
+
