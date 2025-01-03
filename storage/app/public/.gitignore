@@ -1,2 +1,5 @@
 *
 !.gitignore
+/storage/*.key
+/storage/app/private
+!storage/app/public/

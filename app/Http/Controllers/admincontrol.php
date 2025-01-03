@@ -30,4 +30,9 @@ class AdminControl extends Controller
 
         return redirect('login');
     }
+
+    public function permintaanAdopsi()
+{
+    return view('admin.permintaan-adopsi.index');
+}
 }
