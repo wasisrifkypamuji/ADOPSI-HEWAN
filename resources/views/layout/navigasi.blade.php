@@ -68,12 +68,17 @@
   }
 
   .profile-icon img{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .profile-icon{
-    }
+  
+  .profile-icon img:hover {
+    cursor: pointer; 
+    transform: scale(1.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
 
     .btn-edit, .btn-logout {
       width: 250px;
@@ -109,12 +114,16 @@
   @auth
   <li class="nav-item">
     <a class="navbar-brand profile-icon" href="#" id="profileIcon">
-      <img src="{{ asset('images/profil.png') }}" alt="Logo profil">
-    </a>
+<img 
+  src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->username) }}" 
+  class="rounded-circle">
+</a>
   </li>
   <div class="profile-sidebar" id="profileSidebar">
     <div class="profile-header">
-      <img src="{{ asset('images/profil.png') }}" alt="Profile Picture">
+        <img 
+      src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->username) }}" 
+      class="rounded-circle">
       <h3>{{ Auth::user()->username }}</h3>
       <p>{{ Auth::user()->email }}</p>
       <p>{{ Auth::user()->no_telpon }}</p>
