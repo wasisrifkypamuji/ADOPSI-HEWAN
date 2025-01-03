@@ -8,6 +8,7 @@ use App\Http\Controllers\KirimHewanController;
 use App\Http\Controllers\AdopsiController;
 use App\Http\Controllers\AdminHewanController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\KomenController;
 
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
@@ -22,10 +23,7 @@ Route::get('/', function () {
 })->name('homeuser');
 
 // User routes
-Route::get('/homeuser', function () {
-    return view('homeuser');
-})->name('homeuser');
-
+Route::get('/homeuser', [homeusercontrol::class, 'index'])->name('homeuser');
 Route::get('/historilaporan/{id_adopsi}', [LaporanController::class, 'index'])->name('historilaporan');
 
 
@@ -57,5 +55,14 @@ Route::middleware(['auth:admin'])->group(function () {
 });
 
 // routes untuk adopsi
-Route::get('/adopsi', [AdopsiController::class, 'index'])->name('adopsi.index');
+Route::get('/adopsi', [AdopsiController::class, 'index'])->name('adopsi.index')->middleware('auth');
 Route::get('/adopsi/{id}', [AdopsiController::class, 'show'])->name('adopsi.show');
+
+// komen
+Route::get('/', [KomenController::class, 'ambilKomentar'])->name('homeuser');
+Route::post('/komentar', [KomenController::class, 'simpanKomentar'])->name('komentar.simpan');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/komentar/{parent_id}/reply', [KomenController::class, 'reply'])->name('komentar.reply');
+    Route::delete('/komentar/{id}', [KomenController::class, 'destroy'])->name('komentar.destroy');
+});
