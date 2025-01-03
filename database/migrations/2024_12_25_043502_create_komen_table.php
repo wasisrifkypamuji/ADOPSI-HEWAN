@@ -13,9 +13,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('id_admin');
             $table->string('username');
-            $table->string('foto');
-            $table->string('video');
+            $table->string('foto')->nullable();
+            $table->string('video')->nullable();
             $table->text('komen');
+            $table->unsignedBigInteger('parent_id')->nullable(); 
             $table->timestamps();
 
             $table->foreign('user_id')
@@ -28,10 +29,25 @@ return new class extends Migration
                   ->on('admin')
                   ->onDelete('cascade');
         });
+        {
+            Schema::table('komen', function (Blueprint $table) {
+                if (!Schema::hasColumn('komen', 'parent_id')) {
+                    $table->unsignedBigInteger('parent_id')->nullable();
+                    $table->foreign('parent_id')
+                        ->references('id_komen')
+                        ->on('komen')
+                        ->onDelete('cascade');
+                }
+            });
+        }
     }
 
     public function down()
     {
         Schema::dropIfExists('komen');
+        Schema::table('komen', function (Blueprint $table) {
+            $table->dropForeign(['parent_id']);
+            $table->dropColumn('parent_id');
+        });
     }
 };
