@@ -25,123 +25,47 @@
           </button>
     </div>
 
-<div id="carouselCardControls" class="carousel slide p-5" data-bs-ride="carousel">
-  <h1 style="text-align: center;">Pilih Hewan Peliharaan</h1>
+<!-- daftar hewan -->
+  <div id="carouselCardControls" class="carousel slide p-5" data-bs-ride="carousel">
+  <h1 style="text-align: center; padding: 20px;">Pilih Hewan Peliharaan</h1>
   <div class="carousel-inner">
-    <!--Item 1 -->
-    <div class="carousel-item active">
+
+  <div class="carousel-item active">
       <div class="row">
-        <div class="col-md-2 offset-md-1">
+        @foreach($hewans->take(5) as $hewan)
+        <div class="col-md-2 @if($loop->first) offset-md-1 @endif">
           <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 1">
+            <img src="{{ Storage::url($hewan->foto) }}" class="card-img-top" alt="{{ $hewan->nama_hewan }}">
             <div class="card-body text-center">
-              <h5 class="card-title">Kucing 1</h5>
-              <p class="card-text">Kucing putih yang lucu.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
+              <h5 class="card-title">{{ $hewan->nama_hewan }}</h5>
+              <p class="card-text">{{ Str::limit($hewan->deskripsi, 50) }}</p>
+              <a href="{{ route('adopsi.show', $hewan->id_hewan) }}" class="btn-nav me-2">Adopsi Sekarang</a>
             </div>
           </div>
         </div>
-        <div class="col-md-2">
-          <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 2">
-            <div class="card-body text-center">
-              <h5 class="card-title">Kucing 2</h5>
-              <p class="card-text">Kucing hitam yang menggemaskan.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 3">
-            <div class="card-body text-center">
-              <h5 class="card-title">Kucing 3</h5>
-              <p class="card-text">Kucing abu-abu dengan mata besar.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 4">
-            <div class="card-body text-center">
-              <h5 class="card-title">Kucing 4</h5>
-              <p class="card-text">Kucing coklat dengan ekor panjang.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 5">
-            <div class="card-body text-center">
-              <h5 class="card-title">Kucing 5</h5>
-              <p class="card-text">Kucing dengan bulu lebat.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
     </div>
 
-    <!--Item 2 -->
     <div class="carousel-item">
       <div class="row">
-        <div class="col-md-2 offset-md-1">
+        @foreach($hewans->skip(5)->take(5) as $hewan)
+        <div class="col-md-2 @if($loop->first) offset-md-1 @endif">
           <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 6">
+            <img src="{{ Storage::url($hewan->foto) }}" class="card-img-top" alt="{{ $hewan->nama_hewan }}">
             <div class="card-body text-center">
-              <h5 class="card-title">Kucing 6</h5>
-              <p class="card-text">Kucing yang ramah dan penuh kasih.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
+              <h5 class="card-title">{{ $hewan->nama_hewan }}</h5>
+              <p class="card-text">{{ Str::limit($hewan->deskripsi, 50) }}</p>
+              <a href="{{ route('adopsi.show', $hewan->id_hewan) }}" class="btn-nav me-2">Adopsi Sekarang</a>
             </div>
           </div>
         </div>
-        <div class="col-md-2">
-          <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 7">
-            <div class="card-body text-center">
-              <h5 class="card-title">Kucing 7</h5>
-              <p class="card-text">Kucing dengan ekspresi lucu.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 8">
-            <div class="card-body text-center">
-              <h5 class="card-title">Kucing 8</h5>
-              <p class="card-text">Kucing anggora berbulu halus.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 9">
-            <div class="card-body text-center">
-              <h5 class="card-title">Kucing 9</h5>
-              <p class="card-text">Kucing dengan karakter ceria.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card">
-            <img src="https://shorturl.at/yNAI4" class="card-img-top" alt="Kucing 10">
-            <div class="card-body text-center">
-              <h5 class="card-title">Kucing 10</h5>
-              <p class="card-text">Kucing yang suka bermain bola.</p>
-              <button class="btn-nav me-2">Adopsi Sekarang</button>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
     </div>
   </div>
 
-  <!--tombol navigasi carousel -->
+  <!-- Tombol navigasi -->
   <button class="carousel-control-prev btn btn-nav me-2" type="button" data-bs-target="#carouselCardControls" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
@@ -151,7 +75,6 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-
 
   <!-- acordion -->
   <h1 style="text-align: center;">Pertanyaan Umum</h1>

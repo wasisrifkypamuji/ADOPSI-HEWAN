@@ -20,11 +20,9 @@ Route::get('signup', [UserController::class, 'showSignupForm'])->name('signup.fo
 Route::post('signup', [UserController::class, 'handleSignup'])->name('signup');
 Route::get('/homeuser', [homeusercontrol::class, 'index'])->name('homeuser');
 
-Route::get('/', function () {
-    return view('homeuser');
-})->name('homeuser');
 
 // User routes
+Route::get('/', [homeusercontrol::class, 'index'])->name('homeuser');
 Route::get('/homeuser', [homeusercontrol::class, 'index'])->name('homeuser');
 Route::get('/historilaporan/{id_adopsi}', [LaporanController::class, 'index'])->name('historilaporan');
 
@@ -64,7 +62,6 @@ Route::get('/adopsi', [AdopsiController::class, 'index'])->name('adopsi.index')-
 Route::get('/adopsi/{id}', [AdopsiController::class, 'show'])->name('adopsi.show');
 
 // komen
-Route::get('/', [KomenController::class, 'ambilKomentar'])->name('homeuser');
 Route::post('/komentar', [KomenController::class, 'simpanKomentar'])->name('komentar.simpan');
 
 Route::middleware('auth')->group(function () {

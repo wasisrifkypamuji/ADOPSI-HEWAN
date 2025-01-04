@@ -51,6 +51,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bold;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
 .btn-nav:hover{
@@ -68,12 +69,29 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
   height: 100%;
+}
+
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-body .btn-nav {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
 }
 
 .carousel-control-prev,
   .carousel-control-next {
-    top: 35%;
+    position: absolute;
+    top: 50%;
     width: auto;
     height: 20%;
     background-color: #F96E2A;
