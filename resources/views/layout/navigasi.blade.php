@@ -11,85 +11,6 @@
       height: 100%;
       margin: 0;
     }
-
-    .content-wrapper {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    footer {
-      padding: 20px;
-      margin-top: auto; 
-      width: 100%;
-    }
-
-    .profile-sidebar {
-      padding: 20px;
-      position: fixed;
-      top: 0;
-      right: -300px; 
-      width: 300px;
-      height: 100%;
-      background-color: #fff;
-      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-      transition: right 0.3s ease;
-      z-index: 1001;
-    }
-
-    .profile-header {
-      text-align: center;
-    }
-
-    .profile-sidebar.active {
-      right: 0; 
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: none;
-      z-index: 1000;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    .profile-header img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-
-  .profile-icon img{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .profile-icon img:hover {
-    cursor: pointer; 
-    transform: scale(1.1);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
-
-    .btn-edit, .btn-logout {
-      width: 250px;
-      height: 40px;
-      margin: 5px;
-    }
-
-    .content-wrapper {
-   margin-left: 50px;
-   margin-right: 50px;
-}
   </style>
 </head>
 <body>
@@ -120,21 +41,37 @@
 </a>
   </li>
   <div class="profile-sidebar" id="profileSidebar">
-    <div class="profile-header">
+    <div class="profile-header text-center">
         <img 
-      src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->username) }}" 
-      class="rounded-circle">
-      <h3>{{ Auth::user()->username }}</h3>
-      <p>{{ Auth::user()->email }}</p>
-      <p>{{ Auth::user()->no_telpon }}</p>
-      <p>{{ Auth::user()->alamat }}</p>
-      <button class="btn-nav btn-edit">Edit Profil</button> <br>
-      <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-        @csrf
-        <button type="submit" class="btn btn-danger btn-logout">Logout</button>
-      </form>
+            src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->username) }}" 
+            class="rounded-circle mb-3">
+        <h3>{{ Auth::user()->username }}</h3>
+        <div class="profile-info mt-4">
+            <div class="info-container mb-3">
+                <p class="info-label"><strong>Nama Lengkap</strong></p>
+                <p class="info-value">{{ Auth::user()->nama_lengkap }}</p>
+            </div>
+            <div class="info-container mb-3">
+                <p class="info-label"><strong>Email</strong></p>
+                <p class="info-value">{{ Auth::user()->email }}</p>
+            </div>
+            <div class="info-container mb-3">
+                <p class="info-label"><strong>Nomor Telepon</strong></p>
+                <p class="info-value">{{ Auth::user()->no_telepon }}</p>
+            </div>
+            <div class="info-container mb-3">
+                <p class="info-label"><strong>Alamat</strong></p>
+                <p class="info-value">{{ Auth::user()->alamat }}</p>
+            </div>
+        </div>
+        <button class="btn-nav btn-edit mt-3" onclick="window.location.href='{{ route('editprofil.show') }}'">Edit Profil</button> <br>
+        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+            @csrf
+            <button type="submit" class="btn btn-danger btn-logout mt-2">Logout</button>
+        </form>
     </div>
-  </div>
+</div>
+
   <div class="overlay" id="overlay"></div>
   @else
   <li class="nav-item">

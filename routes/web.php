@@ -24,6 +24,13 @@ Route::get('/homeuser', [homeusercontrol::class, 'index'])->name('homeuser');
 // User routes
 Route::get('/', [homeusercontrol::class, 'index'])->name('homeuser');
 Route::get('/homeuser', [homeusercontrol::class, 'index'])->name('homeuser');
+
+// edit user
+Route::get('/editprofil', [UserController::class, 'edit'])->name('editprofil.show');
+Route::put('/profil/update', [UserController::class, 'update'])->name('editprofil.update');
+
+
+
 Route::get('/historilaporan/{id_adopsi}', [LaporanController::class, 'index'])->name('historilaporan');
 
 // Admin routes

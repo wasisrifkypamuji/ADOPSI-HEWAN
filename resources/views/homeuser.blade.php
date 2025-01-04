@@ -39,7 +39,7 @@
             <div class="card-body text-center">
               <h5 class="card-title">{{ $hewan->nama_hewan }}</h5>
               <p class="card-text">{{ Str::limit($hewan->deskripsi, 50) }}</p>
-              <a href="{{ route('adopsi.show', $hewan->id_hewan) }}" class="btn-nav me-2">Adopsi Sekarang</a>
+              <a href="{{ route('adopsi.show', $hewan->id_hewan) }}" class="btn-nav-car me-2">Adopsi Sekarang</a>
             </div>
           </div>
         </div>
@@ -56,7 +56,7 @@
             <div class="card-body text-center">
               <h5 class="card-title">{{ $hewan->nama_hewan }}</h5>
               <p class="card-text">{{ Str::limit($hewan->deskripsi, 50) }}</p>
-              <a href="{{ route('adopsi.show', $hewan->id_hewan) }}" class="btn-nav me-2">Adopsi Sekarang</a>
+              <a href="{{ route('adopsi.show', $hewan->id_hewan) }}" class="btn-nav-car me-2">Adopsi Sekarang</a>
             </div>
           </div>
         </div>
