@@ -82,10 +82,19 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   justify-content: space-between;
 }
 
-.card-body .btn-nav {
+.card-body .btn-nav-car {
   margin-top: auto;
   width: 100%;
   text-align: center;
+  background-color: #F96E2A;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
 .carousel-control-prev,
@@ -121,8 +130,8 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
   .accordion-wrapper {
     display: flex;
-    justify-content: center; /* Memusatkan secara horizontal */
-    align-items: center; /* Memusatkan secara vertikal */
+    justify-content: center; 
+    align-items: center; 
   }
   .accordion-button {
     background-color: #f8f9fa;
@@ -138,3 +147,99 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 20px 0;
   }
   
+
+  .content-wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  footer {
+    padding: 20px;
+    margin-top: auto; 
+    width: 100%;
+  }
+
+  .profile-sidebar {
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    right: -400px; 
+    width: 400px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    z-index: 1001;
+  }
+
+  .profile-header {
+    text-align: center;
+  }
+  .info-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  }
+
+  .info-label {
+      margin: 0;
+      font-weight: bold;
+      color: #555;
+  }
+
+  .info-value {
+      margin: 0;
+      color: #333;
+  }
+
+  .profile-sidebar.active {
+    right: 0; 
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1000;
+  }
+
+  .overlay.active {
+    display: block;
+  }
+
+  .profile-header img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-icon img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-icon img:hover {
+  cursor: pointer; 
+  transform: scale(1.1);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+  .btn-edit, .btn-logout {
+    width: 100%;
+    height: 40px;
+    margin: 5px;
+  }
+
+  .content-wrapper {
+ margin-left: 50px;
+ margin-right: 50px;
+}
