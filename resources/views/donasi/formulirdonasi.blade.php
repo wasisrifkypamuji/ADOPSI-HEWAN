@@ -162,7 +162,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" name="usia" class="form-control bg-gray-100 border-0" 
+                    <input type="number" name="usia" class="form-control bg-gray-100 border-0" 
                            placeholder="Usia" required value="{{ old('usia') }}">
                 </div>
 

@@ -8,6 +8,8 @@ use App\Models\Kategori;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Models\KirimHewan;
 
 class AdminHewanController extends Controller
 {
@@ -39,42 +41,83 @@ class AdminHewanController extends Controller
 
     public function storeHewan(Request $request)
     {
-        $request->validate([
-            'nama_hewan' => 'required|string|max:255',
-            'id_kategori' => 'required|exists:kategori,id_kategori',
-            'ras' => 'required|string|max:255',
-            'umur' => 'required|string',
-            'gender' => 'required|string',
-            'deskripsi' => 'required|string',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
+        try {
+            // Validasi dasar
+            $baseValidation = [
+                'nama_hewan' => 'required|string|max:255',
+                'id_kategori' => 'required|exists:kategori,id_kategori',
+                'ras' => 'required|string|max:255',
+                'umur' => 'required|integer|min:0',
+                'gender' => 'required|in:Jantan,Betina',
+                'deskripsi' => 'required|string',
+            ];
 
-        // Check if hewan already exists
-        $exists = Hewan::where('nama_hewan', $request->nama_hewan)
-            ->where('id_kategori', $request->id_kategori)
-            ->exists();
+            // Tambahkan validasi untuk foto berdasarkan kasus
+            if ($request->has('existing_foto')) {
+                $baseValidation['existing_foto'] = 'required';
+            } else {
+                $baseValidation['foto'] = 'required|image|mimes:jpeg,png,jpg|max:2048';
+            }
 
-        if ($exists) {
-            return redirect()->back()->with('error', 'Hewan ini sudah ada dalam daftar adopsi');
+            $validated = $request->validate($baseValidation);
+
+            // Cek apakah hewan sudah ada
+            $exists = Hewan::where('nama_hewan', $request->nama_hewan)
+                ->where('id_kategori', $request->id_kategori)
+                ->exists();
+
+            if ($exists) {
+                return redirect()->back()->with('error', 'Hewan ini sudah ada dalam daftar adopsi');
+            }
+
+            // Handle foto
+            if ($request->hasFile('foto')) {
+                $foto = $request->file('foto');
+                $fotoName = time() . '_' . $foto->getClientOriginalName();
+                $fotoPath = $foto->storeAs('hewan', $fotoName, 'public');
+            } else {
+                $fotoPath = $request->existing_foto;
+            }
+
+            // Data untuk hewan
+            $kategori = Kategori::findOrFail($request->id_kategori);
+            $hewanData = [
+                'nama_hewan' => $request->nama_hewan,
+                'id_admin' => Auth::guard('admin')->id(),
+                'id_kategori' => $kategori->id_kategori,
+                'nama_kategori' => $kategori->nama_kategori,
+                'ras' => $request->ras,
+                'umur' => (int)$request->umur,
+                'gender' => $request->gender,
+                'deskripsi' => $request->deskripsi,
+                'foto' => $fotoPath,
+                'status_adopsi' => 'Tersedia'
+            ];
+
+            // Simpan data hewan
+            $hewan = Hewan::create($hewanData);
+
+            // Update status donasi jika foto berasal dari form donasi
+            if ($hewan && $request->has('existing_foto')) {
+                KirimHewan::where('foto', $request->existing_foto)
+                    ->update(['status' => 'selesai']);
+            }
+
+            return redirect()
+                ->back()
+                ->with('success', 'Hewan berhasil ditambahkan');
+        } catch (\Exception $e) {
+            \Log::error('Error adding animal:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'request_data' => $request->all()
+            ]);
+
+            return redirect()
+                ->back()
+                ->with('error', 'Gagal menambahkan hewan: ' . $e->getMessage())
+                ->withInput();
         }
-
-        $fotoPath = $request->file('foto')->store('hewan', 'public');
-        $kategori = Kategori::find($request->id_kategori);
-
-        Hewan::create([
-            'nama_hewan' => $request->nama_hewan,
-            'id_kategori' => $request->id_kategori,
-            'nama_kategori' => $kategori->nama_kategori,
-            'id_admin' => Auth::guard('admin')->id(),
-            'ras' => $request->ras,
-            'umur' => $request->umur,
-            'gender' => $request->gender,
-            'deskripsi' => $request->deskripsi,
-            'foto' => $fotoPath,
-            'status_adopsi' => 'Tersedia'
-        ]);
-
-        return redirect()->back()->with('success', 'Hewan berhasil ditambahkan');
     }
 
     public function adoptions(Request $request)
