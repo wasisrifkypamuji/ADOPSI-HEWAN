@@ -14,7 +14,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kategori');
             $table->string('nama_kategori');
             $table->string('nama_hewan');
-            $table->string('umur');
+            $table->integer('umur')->unsigned();
             $table->string('gender');
             $table->string('ras');
             $table->text('deskripsi');

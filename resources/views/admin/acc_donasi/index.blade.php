@@ -40,7 +40,8 @@
                                     <p class="mb-2">
                                         <strong>Status:</strong>
                                         <span class="badge {{ $donation->status == 'disetujui' ? 'bg-success' : 
-                                            ($donation->status == 'ditolak' ? 'bg-danger' : 'bg-warning') }}">
+                                            ($donation->status == 'ditolak' ? 'bg-danger' : 
+                                            ($donation->status == 'selesai' ? 'bg-info' : 'bg-warning')) }}">
                                             {{ $donation->status_label }}
                                         </span>
                                     </p>
@@ -68,23 +69,27 @@
                                                     Tolak
                                                 </button>
                                             </form>
-                                        @elseif($donation->status == 'disetujui')
-                                            <form action="{{ route('admin.hewan.store') }}" method="POST" class="d-inline">
-                                                @csrf
-                                                <input type="hidden" name="id_kategori" value="{{ $donation->id_kategori }}">
-                                                <input type="hidden" name="nama_kategori" value="{{ $donation->nama_kategori }}">
-                                                <input type="hidden" name="nama_hewan" value="{{ $donation->nama_hewan }}">
-                                                <input type="hidden" name="umur" value="{{ $donation->usia }}">
-                                                <input type="hidden" name="gender" value="{{ $donation->gender }}">
-                                                <input type="hidden" name="deskripsi" value="{{ $donation->deskripsi }}">
-                                                <input type="hidden" name="foto" value="{{ $donation->foto }}">
-                                                <input type="hidden" name="status_adopsi" value="Tersedia">
-                                                <button type="submit" class="btn btn-primary btn-sm">
-                                                    Upload Hewan
-                                                </button>
-                                            </form>
+                                        @endif
+
+                                        @if($donation->status == 'disetujui')
+                                            @if($donation->status != 'selesai')
+                                                <form action="{{ route('admin.hewan.store') }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="id_kategori" value="{{ $donation->id_kategori }}">
+                                                    <input type="hidden" name="nama_kategori" value="{{ $donation->nama_kategori }}">
+                                                    <input type="hidden" name="nama_hewan" value="{{ $donation->nama_hewan }}">
+                                                    <input type="hidden" name="umur" value="{{ intval($donation->usia) }}">
+                                                    <input type="hidden" name="gender" value="{{ $donation->gender }}">
+                                                    <input type="hidden" name="deskripsi" value="{{ $donation->deskripsi }}">
+                                                    <input type="hidden" name="existing_foto" value="{{ $donation->foto }}">
+                                                    <input type="hidden" name="ras" value="-">
+                                                    <input type="hidden" name="status_adopsi" value="Tersedia">
+                                                    <button type="submit" class="btn btn-primary btn-sm">
+                                                        Upload Hewan
+                                                    </button>
+                                                </form>
+                                            @endif
                                             
-                                            <!-- Link bukti terima -->
                                             <a href="{{ route('acc-donasi.bukti-terima', $donation->id_kirim) }}" 
                                                class="btn btn-secondary btn-sm mt-2"
                                                target="_blank">
@@ -143,7 +148,8 @@
                                                 <th>Status</th>
                                                 <td>
                                                     <span class="badge {{ $donation->status == 'disetujui' ? 'bg-success' : 
-                                                        ($donation->status == 'ditolak' ? 'bg-danger' : 'bg-warning') }}">
+                                                        ($donation->status == 'ditolak' ? 'bg-danger' : 
+                                                        ($donation->status == 'selesai' ? 'bg-info' : 'bg-warning')) }}">
                                                         {{ $donation->status_label }}
                                                     </span>
                                                 </td>
@@ -189,7 +195,7 @@
                             <div class="modal-footer">
                                 @if($donation->status == 'disetujui' && $donation->bukti_terima)
                                     <a href="{{ route('acc-donasi.download-bukti', $donation->id_kirim) }}" 
-                                    class="btn btn-secondary btn-sm">
+                                       class="btn btn-secondary btn-sm">
                                         Unduh Bukti Terima
                                     </a>
                                 @endif
