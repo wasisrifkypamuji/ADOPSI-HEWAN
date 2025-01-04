@@ -37,12 +37,21 @@ Route::get('/historilaporan/{id_adopsi}', [LaporanController::class, 'index'])->
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/homeadmin', function () {
         return view('homeadmin');
+
     })->name('homeadmin');
     // routes tambah hewan
+    Route::get('/adopsi', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
     Route::get('/tambah-hewan', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
     Route::post('/kategori', [AdminHewanController::class, 'storeKategori'])->name('admin.kategori.store');
     Route::delete('/kategori/{id}', [AdminHewanController::class, 'deleteKategori'])->name('admin.kategori.delete');
     Route::post('/hewan', [AdminHewanController::class, 'storeHewan'])->name('admin.hewan.store');
+
+
+    Route::get('/adopsi', [AdminHewanController::class, 'adoptions'])->name('admin.adopsi.index');
+    Route::get('/adopsi/riwayat', [AdminHewanController::class, 'riwayatAdopsi'])->name('admin.adopsi.riwayat');
+    Route::get('/adopsi/laporan/{id}', [AdminHewanController::class, 'report'])->name('admin.adopsi.laporan');
+    Route::delete('/adopsi/{id}', [AdminHewanController::class, 'deleteAdoption'])->name('admin.adopsi.delete');
+
     //routes acc donasi
     Route::get('/acc-donasi', [AccDonasiController::class, 'index'])->name('acc-donasi.index');
     Route::get('/acc-donasi/{id}', [AccDonasiController::class, 'show'])->name('acc-donasi.show');
@@ -53,6 +62,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/acc-donasi/{id}/status', [AccDonasiController::class, 'checkDonationStatus'])->name('acc-donasi.status');
     Route::post('/acc-donasi/{id}/update-upload-status', [AccDonasiController::class, 'updateUploadStatus'])->name('acc-donasi.update-upload-status');
     Route::post('/acc-donasi/{id}/complete', [AccDonasiController::class, 'markAsCompleted'])->name('acc-donasi.complete');
+
 });
 
 //route donasi
