@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adopsi;
 use App\Models\Hewan;
 use App\Models\Kategori;
+use App\Models\Laporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,5 +67,43 @@ class AdminHewanController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Hewan berhasil ditambahkan');
+    }
+
+    public function adoptions(Request $request) {
+        $query = Hewan::query();
+
+        if ($request->filled('jenis_hewan')) {
+            $query->where('nama_kategori', $request->jenis_hewan);
+        }
+        if ($request->filled('jenis_kelamin')) {
+            $query->where('gender', $request->jenis_kelamin);
+        }
+        if ($request->filled('usia')) {
+            $query->where('umur', $request->usia);
+        }
+
+        $hewan = $query->paginate(12);
+        $kategori = Kategori::select('nama_kategori')->distinct()->get();
+
+        return view('admin.adopsi', compact('hewan', 'kategori'));
+    }
+
+    public function riwayatAdopsi()
+    {
+        $adopsi = Adopsi::with('hewan')->where('id_admin', Auth::guard('admin')->id())->paginate(12);
+        return view('admin.riwayat-adopsi', compact('adopsi'));
+    }
+
+    public function deleteAdoption($id)
+    {
+        Hewan::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Hewan berhasil dihapus');
+    }
+
+    public function report($id) {
+        $laporan = Laporan::with('adopsi')->where('id_adopsi', $id)->paginate(10);
+        $adopsi = Adopsi::findOrFail($id);
+
+        return view('admin.laporan', compact('laporan', 'adopsi'));
     }
 }

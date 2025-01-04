@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Adopsi extends Model
 {
     protected $primaryKey = 'id_adopsi';
+
+    protected $table = 'adopsi';
     
     protected $fillable = [
         'id_admin', 'user_id', 'username', 'nama_lengkap', 'email',
