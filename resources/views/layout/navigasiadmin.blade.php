@@ -102,7 +102,9 @@
         </li>
         <li class="nav-item"><a class="nav-link" href="#">Permintaan Adopsi</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Riwayat Adopsi</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Permintaan Donasi Hewan</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('acc-donasi.index') }}">Permintaan Donasi Hewan</a>
+      </li>
       </ul>
       <ul class="navbar-nav ms-auto">
   @auth

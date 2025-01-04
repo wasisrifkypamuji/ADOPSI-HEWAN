@@ -9,7 +9,6 @@ use App\Models\Laporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class AdminHewanController extends Controller
 {
     public function index()
@@ -50,6 +49,15 @@ class AdminHewanController extends Controller
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
+        // Check if hewan already exists
+        $exists = Hewan::where('nama_hewan', $request->nama_hewan)
+            ->where('id_kategori', $request->id_kategori)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()->with('error', 'Hewan ini sudah ada dalam daftar adopsi');
+        }
+
         $fotoPath = $request->file('foto')->store('hewan', 'public');
         $kategori = Kategori::find($request->id_kategori);
 
@@ -69,7 +77,8 @@ class AdminHewanController extends Controller
         return redirect()->back()->with('success', 'Hewan berhasil ditambahkan');
     }
 
-    public function adoptions(Request $request) {
+    public function adoptions(Request $request)
+    {
         $query = Hewan::query();
 
         if ($request->filled('jenis_hewan')) {
@@ -100,7 +109,8 @@ class AdminHewanController extends Controller
         return redirect()->back()->with('success', 'Hewan berhasil dihapus');
     }
 
-    public function report($id) {
+    public function report($id)
+    {
         $laporan = Laporan::with('adopsi')->where('id_adopsi', $id)->paginate(10);
         $adopsi = Adopsi::findOrFail($id);
 
