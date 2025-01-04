@@ -30,6 +30,17 @@
         .signature-space {
             height: 80px;
         }
+        #loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -74,12 +85,17 @@
         </div>
     </div>
 
-    <button onclick="generatePDF()" style="margin: 20px;">Download PDF</button>
+    <div id="loading">Generating PDF...</div>
+    
+    <button onclick="generatePDF()" style="margin: 20px;" class="btn btn-primary">Download PDF</button>
 
     <script>
         window.jsPDF = window.jspdf.jsPDF;
         
         function generatePDF() {
+            const loading = document.getElementById('loading');
+            loading.style.display = 'block';
+            
             const element = document.getElementById('content-to-pdf');
             html2canvas(element).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
@@ -90,6 +106,12 @@
                 
                 pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
                 pdf.save('bukti_terima_donasi.pdf');
+                
+                loading.style.display = 'none';
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                loading.style.display = 'none';
+                alert('Terjadi kesalahan saat membuat PDF. Silakan coba lagi.');
             });
         }
     </script>

@@ -10,8 +10,8 @@ use App\Http\Controllers\AdminHewanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AccDonasiController;
 use App\Http\Controllers\KomenController;
-
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -43,7 +43,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/acc-donasi/{id}', [AccDonasiController::class, 'show'])->name('acc-donasi.show');
     Route::post('/acc-donasi/{id}/approve', [AccDonasiController::class, 'approve'])->name('acc-donasi.approve');
     Route::post('/acc-donasi/{id}/reject', [AccDonasiController::class, 'reject'])->name('acc-donasi.reject');
-    Route::post('/hewan/store', [AdminHewanController::class, 'store'])->name('admin.hewan.store');
+    // Route::post('/hewan/store', [AdminHewanController::class, 'store'])->name('admin.hewan.store');
     Route::get('/acc-donasi/{id}/download-bukti', [AccDonasiController::class, 'downloadBukti'])->name('acc-donasi.download-bukti');
     Route::get('/acc-donasi/{id}/status', [AccDonasiController::class, 'checkDonationStatus'])->name('acc-donasi.status');
     Route::post('/acc-donasi/{id}/update-upload-status', [AccDonasiController::class, 'updateUploadStatus'])->name('acc-donasi.update-upload-status');
@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/adopsi', [AdopsiController::class, 'index'])->name('adopsi.index')->middleware('auth');
 Route::get('/adopsi/{id}', [AdopsiController::class, 'show'])->name('adopsi.show');
 
+
 // komen
 Route::get('/', [KomenController::class, 'ambilKomentar'])->name('homeuser');
 Route::post('/komentar', [KomenController::class, 'simpanKomentar'])->name('komentar.simpan');
@@ -71,3 +72,23 @@ Route::middleware('auth')->group(function () {
     Route::post('/komentar/{parent_id}/reply', [KomenController::class, 'reply'])->name('komentar.reply');
     Route::delete('/komentar/{id}', [KomenController::class, 'destroy'])->name('komentar.destroy');
 });
+
+
+
+
+
+Route::get('/download-template', function () {
+    $filePath = storage_path('app/templates/template-perjanjian-donasi.pdf');
+    
+    \Log::info('Attempting to download file: ' . $filePath);
+    \Log::info('File exists: ' . (file_exists($filePath) ? 'Yes' : 'No'));
+    
+    if (file_exists($filePath)) {
+        return Response::file($filePath, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="template-perjanjian-donasi.pdf"'
+        ]);
+    }
+    
+    return abort(404, 'File tidak ditemukan');
+})->name('download.template');
