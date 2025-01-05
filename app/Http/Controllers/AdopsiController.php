@@ -89,7 +89,40 @@ class AdopsiController extends Controller
             'status_adopsi' => 'pending'
         ]);
 
-        return redirect()->route('adopsi.index')
+        return redirect()->route('adopsi.my-adoptions')
             ->with('success', 'Form pengajuan adopsi berhasil dikirim! Tunggu konfirmasi dari Admin');
     }
+
+
+    public function userAdoptions()
+{
+    $adoptions = Adopsi::with('hewan')
+        ->where('user_id', auth()->id())
+        ->orderBy('created_at', 'desc')
+        ->get();
+    
+    return view('adopsi.adopsiMu', compact('adoptions'));
+}
+
+public function cancel($id)
+{
+    $adopsi = Adopsi::where('user_id', auth()->id())
+        ->where('id_adopsi', $id)
+        ->where('status_adopsi', 'pending')
+        ->firstOrFail();
+        
+    $adopsi->delete();
+    
+    return redirect()->back()->with('success', 'Pengajuan adopsi berhasil dibatalkan');
+}
+
+public function viewForm($id)
+{
+    $adoption = Adopsi::with(['hewan', 'pertanyaan'])
+        ->where('user_id', auth()->id())
+        ->where('id_adopsi', $id)
+        ->firstOrFail();
+        
+    return view('adopsi.infoAdopsi', compact('adoption'));
+}
 }
