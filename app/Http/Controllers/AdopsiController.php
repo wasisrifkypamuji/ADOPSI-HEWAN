@@ -7,6 +7,8 @@ use App\Models\Hewan;
 use App\Models\Adopsi;
 use App\Models\Pertanyaan;
 use App\Models\Kategori;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class AdopsiController extends Controller
 {
@@ -116,13 +118,25 @@ public function cancel($id)
     return redirect()->back()->with('success', 'Pengajuan adopsi berhasil dibatalkan');
 }
 
+public function downloadPdf($id)
+{
+    $adoption = Adopsi::with('hewan')->findOrFail($id);
+
+    if ($adoption->status_adopsi !== 'Disetujui') {
+        return redirect()->back()->with('error', 'Bukti adopsi hanya tersedia untuk pengajuan yang disetujui.');
+    }
+
+    $data = [
+         'adoption' => $adoption
+    ];
+
+    $pdf = Pdf::loadView('pdf.bukti_adopsi', $data);
+    return $pdf->stream('bukti_adopsi_'.$adoption->id_adopsi.'.pdf');
+}
 public function viewForm($id)
 {
-    $adoption = Adopsi::with(['hewan', 'pertanyaan'])
-        ->where('user_id', auth()->id())
-        ->where('id_adopsi', $id)
-        ->firstOrFail();
-        
+    $adoption = Adopsi::with(['hewan', 'user'])->where('user_id', auth()->id())->where('id_adopsi', $id)->firstOrFail();
     return view('adopsi.infoAdopsi', compact('adoption'));
 }
+
 }

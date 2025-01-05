@@ -140,3 +140,6 @@ Route::get('/my-adoptions', [AdopsiController::class, 'userAdoptions'])
 Route::get('/adoptions/{id}/form', [AdopsiController::class, 'viewForm'])
     ->name('adopsi.view-form')
     ->middleware('auth');
+
+    Route::get('/adopsi/{id}/download', [AdopsiController::class, 'downloadPdf'])->name('adopsi.download-pdf');
+    
