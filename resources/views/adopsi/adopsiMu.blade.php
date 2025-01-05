@@ -10,7 +10,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    
 
     <div class="row g-4">
         @foreach($adoptions as $adoption)
@@ -21,13 +20,24 @@
                     <h5 class="card-title">{{ $adoption->nama_hewan }}</h5>
                     <p class="card-text">
                         Status: 
-                        <span class="badge {{ $adoption->status_adopsi == 'pending' ? 'bg-warning' : 'bg-success' }}">
-                            {{ $adoption->status_adopsi == 'pending' ? 'Menunggu' : 'Disetujui' }}
-                        </span>
+                        @if($adoption->status_adopsi == 'pending')
+                            <span class="badge bg-warning">Menunggu</span>
+                        @elseif($adoption->status_adopsi == 'Disetujui')
+                            <span class="badge bg-success">Disetujui</span>
+                        @elseif($adoption->status_adopsi == 'Ditolak')
+                            <span class="badge bg-danger">Ditolak</span>
+                        @endif
                     </p>
+
+                    @if($adoption->status_adopsi == 'Ditolak' && $adoption->alasan_penolakan)
+                        <div class="alert alert-danger py-2 mb-3">
+                            <small><strong>Alasan penolakan:</strong><br>
+                            {{ $adoption->alasan_penolakan }}</small>
+                        </div>
+                    @endif
                     
                     <div class="d-flex gap-2">
-                        <button type="button" class="btn-nav" data-bs-toggle="modal" data-bs-target="#detailModal{{ $adoption->id_adopsi }}">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal{{ $adoption->id_adopsi }}">
                             Detail
                         </button>
 
@@ -36,10 +46,8 @@
                                 Batalkan
                             </button>
                         @elseif($adoption->status_adopsi == 'Disetujui')
-                        <a href="#" class="btn btn-primary">Unduh Bukti Adopsii</a>
-                        <a href="#" class="btn btn-success">Berikan laporan</a>
-                        @else
-                            <p class="text-muted">Status tidak diketahui</p>
+                            <a href="#" class="btn btn-warning">Unduh Bukti Adopsi</a>
+                            <a href="#" class="btn btn-success">Berikan laporan</a>
                         @endif
                     </div>
                 </div>
@@ -78,11 +86,21 @@
                             <tr>
                                 <th>Status</th>
                                 <td>
-                                    <span class="badge {{ $adoption->status_adopsi == 'pending' ? 'bg-warning' : 'bg-success' }}">
-                                        {{ $adoption->status_adopsi == 'pending' ? 'Menunggu' : 'Disetujui' }}
-                                    </span>
+                                    @if($adoption->status_adopsi == 'pending')
+                                        <span class="badge bg-warning">Menunggu</span>
+                                    @elseif($adoption->status_adopsi == 'Disetujui')
+                                        <span class="badge bg-success">Disetujui</span>
+                                    @elseif($adoption->status_adopsi == 'Ditolak')
+                                        <span class="badge bg-danger">Ditolak</span>
+                                    @endif
                                 </td>
                             </tr>
+                            @if($adoption->status_adopsi == 'Ditolak' && $adoption->alasan_penolakan)
+                                <tr>
+                                    <th>Alasan Penolakan</th>
+                                    <td>{{ $adoption->alasan_penolakan }}</td>
+                                </tr>
+                            @endif
                             <tr>
                                 <th>Form Adopsi</th>
                                 <td><a href="{{ route('adopsi.view-form', $adoption->id_adopsi) }}" class="btn btn-success">Lihat Formulir</a></td>
@@ -96,7 +114,7 @@
             </div>
         </div>
 
-        <!-- konfirmasi bataal -->
+        <!-- konfirmasi batal -->
         @if($adoption->status_adopsi == 'pending')
         <div class="modal fade" id="cancelModal{{ $adoption->id_adopsi }}" tabindex="-1" aria-labelledby="cancelModalLabel{{ $adoption->id_adopsi }}" aria-hidden="true">
             <div class="modal-dialog">
