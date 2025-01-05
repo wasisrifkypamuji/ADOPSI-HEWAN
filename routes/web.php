@@ -110,3 +110,18 @@ Route::get('/download-template', function () {
     
     return abort(404, 'File tidak ditemukan');
 })->name('download.template');
+
+
+//adopsiMU
+Route::get('/my-adoptions', [AdopsiController::class, 'userAdoptions'])
+    ->name('adopsi.my-adoptions')
+    ->middleware('auth');
+
+    Route::delete('/adoptions/{id}/cancel', [AdopsiController::class, 'cancel'])
+    ->name('adopsi.cancel')
+    ->middleware('auth');
+
+//Info formm adopsi
+Route::get('/adoptions/{id}/form', [AdopsiController::class, 'viewForm'])
+    ->name('adopsi.view-form')
+    ->middleware('auth'); 
