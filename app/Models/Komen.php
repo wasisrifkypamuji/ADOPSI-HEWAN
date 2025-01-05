@@ -9,7 +9,7 @@ class Komen extends Model
     protected $table = 'komen';
 
     protected $primaryKey = 'id_komen';
-    protected $table = 'komen';
+    
     protected $fillable = [
         'user_id', 'id_admin', 'username', 'foto', 'video', 'komen','parent_id' 
     ];
