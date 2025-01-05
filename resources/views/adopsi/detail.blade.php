@@ -40,9 +40,11 @@
                     </div>
                 </div>
 
-                <button class="btn w-100" style="background-color: #ff6b35; color: white;">
-                    Adopsi Sekarang
-                </button>
+                <button 
+          class="btn-nav me-2" 
+          onclick="window.location.href='{{ route('adopsi.create', $hewan->id_hewan) }}'">
+          Adopsi Sekarang
+          </button>
             </div>
         </div>
     </div>
