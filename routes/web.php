@@ -77,6 +77,10 @@ Route::middleware(['auth'])->group(function () {
 // routes untuk adopsi
 Route::get('/adopsi', [AdopsiController::class, 'index'])->name('adopsi.index')->middleware('auth');
 Route::get('/adopsi/{id}', [AdopsiController::class, 'show'])->name('adopsi.show');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/adopsi/create/{id}', [AdopsiController::class, 'create'])->name('adopsi.create');
+    Route::post('/adopsi/store', [AdopsiController::class, 'store'])->name('adopsi.store');
+});
 
 
 // komen
