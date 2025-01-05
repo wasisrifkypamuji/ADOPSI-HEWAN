@@ -24,7 +24,9 @@ class KirimHewan extends Model
         'video', 
         'surat_perjanjian',
         'surat_keterangan_sehat', 
-        'status'
+        'status',
+        'bukti_terima',
+        'alasan_penolakan'
     ];
 
     public function admin()
@@ -41,5 +43,13 @@ class KirimHewan extends Model
     {
         return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
     }
-}
 
+    public function getStatusLabelAttribute()
+    {
+        return [
+            'proses' => 'Sedang Diproses',
+            'disetujui' => 'Disetujui',
+            'ditolak' => 'Ditolak'
+        ][$this->status] ?? $this->status;
+    }
+}

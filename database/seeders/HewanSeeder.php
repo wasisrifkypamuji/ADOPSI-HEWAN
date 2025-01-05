@@ -15,7 +15,7 @@ class HewanSeeder extends Seeder
             'id_kategori' => 1,
             'nama_kategori' => 'Kucing Persia',
             'nama_hewan' => 'Mochi',
-            'umur' => '2 tahun',
+            'umur' => 24,  // Ubah dari "2 tahun" menjadi angka bulan
             'gender' => 'Jantan',
             'ras' => 'Persia',
             'deskripsi' => 'Kucing lucu dan jinak.',
