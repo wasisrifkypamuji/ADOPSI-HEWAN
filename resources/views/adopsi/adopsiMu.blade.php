@@ -46,8 +46,8 @@
                                 Batalkan
                             </button>
                         @elseif($adoption->status_adopsi == 'Disetujui')
-                            <a href="#" class="btn btn-warning">Unduh Bukti Adopsi</a>
-                            <a href="#" class="btn btn-success">Berikan laporan</a>
+                        <a href="{{ route('adopsi.download-pdf', $adoption->id_adopsi) }}" class="btn btn-warning">Unduh Bukti Adopsi</a>
+                        <a href="#" class="btn btn-success">Berikan laporan</a>
                         @endif
                     </div>
                 </div>
