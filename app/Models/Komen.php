@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Komen extends Model
 {
+    protected $table = 'komen';
+
     protected $primaryKey = 'id_komen';
     protected $table = 'komen';
     protected $fillable = [

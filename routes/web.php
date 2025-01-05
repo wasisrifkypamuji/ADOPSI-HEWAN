@@ -13,6 +13,7 @@ use App\Http\Controllers\KomenController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -42,10 +43,19 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     // routes tambah hewan
     Route::get('/adopsi', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
     Route::get('/tambah-hewan', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
+    Route::get('/homeadmin', [AdminHewanController::class, 'showHewans']);
+    Route::get('/adopsi/{id_hewan}', [AdopsiController::class, 'show'])->name('adopsi.show');
     Route::post('/kategori', [AdminHewanController::class, 'storeKategori'])->name('admin.kategori.store');
     Route::delete('/kategori/{id}', [AdminHewanController::class, 'deleteKategori'])->name('admin.kategori.delete');
     Route::post('/hewan', [AdminHewanController::class, 'storeHewan'])->name('admin.hewan.store');
 
+    // routes komen
+    Route::get('/homeadmin', [AdminHewanController::class, 'home'])->name('homeadmin.index');
+
+    // Route tambahan lainnya
+    Route::post('/komentar', [AdminHewanController::class, 'storeKomentar'])->name('komentar.store');
+    Route::delete('/komentar/{id}', [AdminHewanController::class, 'deleteKomentar'])->name('komentar.destroy');
+    Route::post('/komentar/{id}/reply', [AdminHewanController::class, 'replyKomentar'])->name('komentar.reply');
 
     Route::get('/adopsi', [AdminHewanController::class, 'adoptions'])->name('admin.adopsi.index');
     Route::get('/adopsi/riwayat', [AdminHewanController::class, 'riwayatAdopsi'])->name('admin.adopsi.riwayat');
@@ -57,7 +67,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/acc-donasi/{id}', [AccDonasiController::class, 'show'])->name('acc-donasi.show');
     Route::post('/acc-donasi/{id}/approve', [AccDonasiController::class, 'approve'])->name('acc-donasi.approve');
     Route::post('/acc-donasi/{id}/reject', [AccDonasiController::class, 'reject'])->name('acc-donasi.reject');
-    // Route::post('/hewan/store', [AdminHewanController::class, 'store'])->name('admin.hewan.store');
     Route::get('/acc-donasi/{id}/download-bukti', [AccDonasiController::class, 'downloadBukti'])->name('acc-donasi.download-bukti');
     Route::get('/acc-donasi/{id}/status', [AccDonasiController::class, 'checkDonationStatus'])->name('acc-donasi.status');
     Route::post('/acc-donasi/{id}/update-upload-status', [AccDonasiController::class, 'updateUploadStatus'])->name('acc-donasi.update-upload-status');
@@ -94,7 +103,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-
 Route::get('/download-template', function () {
     $filePath = storage_path('app/templates/template-perjanjian-donasi.pdf');
     
@@ -124,4 +132,4 @@ Route::get('/my-adoptions', [AdopsiController::class, 'userAdoptions'])
 //Info formm adopsi
 Route::get('/adoptions/{id}/form', [AdopsiController::class, 'viewForm'])
     ->name('adopsi.view-form')
-    ->middleware('auth'); 
+    ->middleware('auth');
