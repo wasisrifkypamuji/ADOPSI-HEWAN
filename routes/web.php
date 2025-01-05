@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminHewanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AccDonasiController;
 use App\Http\Controllers\KomenController;
+use App\Http\Controllers\AdopsiAdminController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 
@@ -61,6 +62,12 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/adopsi/riwayat', [AdminHewanController::class, 'riwayatAdopsi'])->name('admin.adopsi.riwayat');
     Route::get('/adopsi/laporan/{id}', [AdminHewanController::class, 'report'])->name('admin.adopsi.laporan');
     Route::delete('/adopsi/{id}', [AdminHewanController::class, 'deleteAdoption'])->name('admin.adopsi.delete');
+
+    // Tambahkan routes untuk permintaan adopsi
+    Route::get('/permintaanadopsi', [AdopsiAdminController::class, 'index'])->name('admin.permintaanadopsi');
+    Route::put('/permintaanadopsi/{id}/accept', [AdopsiAdminController::class, 'accept'])->name('admin.adopsi.accept');
+    Route::put('/permintaanadopsi/{id}/reject', [AdopsiAdminController::class, 'reject'])->name('admin.adopsi.reject');
+    Route::get('/permintaanadopsi/form/{id}', [AdopsiAdminController::class, 'viewForm'])->name('admin.adopsi.view-form');
 
     //routes acc donasi
     Route::get('/acc-donasi', [AccDonasiController::class, 'index'])->name('acc-donasi.index');
