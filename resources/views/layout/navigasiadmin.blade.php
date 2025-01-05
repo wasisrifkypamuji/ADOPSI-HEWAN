@@ -5,74 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PetAdopt</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('css/stylehome.css') }}">
+  
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
+.navbar{
+    background-color: #78B3CE;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    .navbar .nav-link:hover {
+    background-color: #C9E6F0;
+    color: #78B3CE;
+    }
+    
+    .nav-button {
+    position: absolute;
+    top: 50%;
+    background-color: #F96E2A;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    }
+    
+    .left-button {
+    left: -10px;  
+    }
+    
+    .right-button {
+    right: -10px;
+    }
+    
+    .bg-gray {
+    margin-top: 50px;
+    background-color: #726868;   
+    padding: 30px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    }
+    
+    
+    .navbar-brand{
+    padding-right: 100px;
+    }
+    .navbar .nav-link {
+    color: white; 
+    }
+    .btn-nav{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    background-color: #F96E2A;
+    }
+    
+    .btn-nav:hover{
+    background-color: #e46a2e;
+    color: white;
+    }
+    
+    .navbar-nav {
+    justify-content: left; 
+    gap: 20px; 
+    }
+    
+    .nav-item .btn {
+    justify-items: right;
+    }
+    
+    .profile-icon {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
     }
 
-    .content-wrapper {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    footer {
-      padding: 20px;
-      margin-top: auto; 
-      width: 100%;
-    }
-
-    .profile-sidebar {
-      padding: 20px;
-      position: fixed;
-      top: 0;
-      right: -300px; 
-      width: 300px;
-      height: 100%;
-      background-color: #fff;
-      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-      transition: right 0.3s ease;
-      z-index: 1001;
-    }
-
-    .profile-header {
-      text-align: center;
-    }
-
-    .profile-sidebar.active {
-      right: 0; 
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: none;
-      z-index: 1000;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    .profile-header img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-
-  .profile-icon img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  .profile-icon{
+    .profile-icon img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
     }
 
     .btn-edit, .btn-logout {
@@ -80,6 +89,12 @@
       height: 40px;
       margin: 5px;
     }
+
+    footer {
+    background-color: #78B3CE;
+    color: white;
+    padding: 20px 0;
+  }
   </style>
 </head>
 <body>
@@ -88,7 +103,7 @@
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container">
     <a class="navbar-brand" href="{{ url('/') }}">
-      <img src="{{ asset('css/Images/Logo.png') }}" style="height: 40px;">
+      <img src="{{ asset('Images Admin\Logo.png') }}" style="height: 40px;">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -108,7 +123,7 @@
   @auth
   <li class="nav-item">
     <a class="navbar-brand profile-icon" href="#" id="profileIcon">
-      <img src="{{ asset('images/profil.png') }}" alt="Logo profil">
+      <img src="{{ asset('Images Admin\profil.png') }}" alt="Logo profil">
     </a>
   </li>
   <div class="profile-sidebar" id="profileSidebar">

@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminHewanController;
 use App\Http\Controllers\LaporanController;
 
 
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -36,9 +37,19 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     })->name('homeadmin');
     // routes tambah hewan
     Route::get('/tambah-hewan', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
+    Route::get('/homeadmin', [AdminHewanController::class, 'showHewans']);
+    Route::get('/adopsi/{id_hewan}', [AdopsiController::class, 'show'])->name('adopsi.show');
     Route::post('/kategori', [AdminHewanController::class, 'storeKategori'])->name('admin.kategori.store');
     Route::delete('/kategori/{id}', [AdminHewanController::class, 'deleteKategori'])->name('admin.kategori.delete');
     Route::post('/hewan', [AdminHewanController::class, 'storeHewan'])->name('admin.hewan.store');
+    // routes komen
+    Route::get('/homeadmin', [AdminHewanController::class, 'home'])->name('homeadmin.index');
+
+    // Route tambahan lainnya
+    Route::post('/komentar', [AdminHewanController::class, 'storeKomentar'])->name('komentar.store');
+    Route::delete('/komentar/{id}', [AdminHewanController::class, 'deleteKomentar'])->name('komentar.destroy');
+    Route::post('/komentar/{id}/reply', [AdminHewanController::class, 'replyKomentar'])->name('komentar.reply');
+
 });
 
 //route donasi
