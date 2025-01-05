@@ -15,6 +15,11 @@ use App\Models\KirimHewan;
 class AdminHewanController extends Controller
 {
     // Tampilkan halaman homeadmin dengan data hewan dan komentar
+    public function index()
+    {
+        $kategori = Kategori::all();
+        return view('admin.tambah-hewan', compact('kategori'));
+    }
     public function home()
     {
         $hewans = Hewan::all();
