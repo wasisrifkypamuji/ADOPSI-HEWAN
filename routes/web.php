@@ -149,3 +149,12 @@ Route::get('/adoptions/{id}/form', [AdopsiController::class, 'viewForm'])
 
     Route::get('/adopsi/{id}/download', [AdopsiController::class, 'downloadPdf'])->name('adopsi.download-pdf');
     
+
+    //passwot
+    Route::prefix('auth')->group(function () {
+        Route::get('/lupa-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+        Route::post('/lupa-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+        Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+        Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+    });
+    
