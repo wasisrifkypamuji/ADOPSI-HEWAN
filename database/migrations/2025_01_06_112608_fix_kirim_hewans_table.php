@@ -28,6 +28,7 @@ return new class extends Migration
             $table->text('surat_keterangan_sehat');
             $table->text('alasan_penolakan')->nullable();
             $table->enum('status', ['proses', 'selesai', 'disetujui', 'ditolak'])->default('proses');
+            $table->string('bukti_terima')->nullable(); // Tambahkan ini
             $table->timestamps();
 
             $table->foreign('id_admin')
