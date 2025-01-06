@@ -14,8 +14,15 @@ class AdopsiController extends Controller
 {
     public function index(Request $request)
 {
-    $query = Hewan::query();
+    // Start with base query
+    $query = Hewan::query()
+        ->whereNotIn('id_hewan', function($query) {
+            $query->select('id_hewan')
+                  ->from('adopsi')
+                  ->where('status_adopsi', 'Disetujui');
+        });
     
+    // Apply filters
     if ($request->filled('jenis_hewan')) {
         $query->where('nama_kategori', $request->jenis_hewan);
     }
