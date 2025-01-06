@@ -80,8 +80,8 @@
                             </div>
                             <div class="modal-body">
                                 <img src="{{ asset('storage/'.$pet->foto) }}" 
-                                     class="img-fluid rounded mb-3" 
-                                     alt="{{ $pet->nama_hewan }}">
+                                    class="img-fluid rounded mb-3" 
+                                    alt="{{ $pet->nama_hewan }}">
                                 <h3>{{ $pet->nama_hewan }}</h3>
                                 <p>{{ $pet->deskripsi }}</p>
                                 <div class="bg-light p-3 rounded">
