@@ -6,81 +6,6 @@
   <title>PetAdopt</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/stylehome.css') }}">
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-
-    .content-wrapper {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    footer {
-      padding: 20px;
-      margin-top: auto; 
-      width: 100%;
-    }
-
-    .profile-sidebar {
-      padding: 20px;
-      position: fixed;
-      top: 0;
-      right: -300px; 
-      width: 300px;
-      height: 100%;
-      background-color: #fff;
-      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-      transition: right 0.3s ease;
-      z-index: 1001;
-    }
-
-    .profile-header {
-      text-align: center;
-    }
-
-    .profile-sidebar.active {
-      right: 0; 
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: none;
-      z-index: 1000;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    .profile-header img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-
-  .profile-icon img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  .profile-icon{
-    }
-
-    .btn-edit, .btn-logout {
-      width: 250px;
-      height: 40px;
-      margin: 5px;
-    }
-  </style>
 </head>
 <body>
 
@@ -97,14 +22,10 @@
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link" href="{{ url('/admin/homeadmin') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.adopsi.index') }}">Adopsi</a></li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('admin.tambah-hewan') }}">Tambah Hewan</a>
-        </li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('admin.tambah-hewan') }}">Tambah Hewan</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.permintaanadopsi') }}">Permintaan Adopsi</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Riwayat Adopsi</a></li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('acc-donasi.index') }}">Permintaan Donasi Hewan</a>
-      </li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('acc-donasi.index') }}">Permintaan Donasi Hewan</a></li>
       </ul>
       <ul class="navbar-nav ms-auto">
   @auth
