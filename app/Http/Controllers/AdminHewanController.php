@@ -34,6 +34,14 @@ class AdminHewanController extends Controller
         return view('adopsi.show', compact('hewan'));
     }
 
+    public function detail($id_hewan)
+    {
+        $hewan = Hewan::findOrFail($id_hewan);
+    
+        // Pastikan Anda merujuk ke lokasi folder views/admin/detailhewan.blade.php
+        return view('admin.detailhewan', compact('hewan'));
+    }
+
     // Simpan kategori
     public function storeKategori(Request $request)
     {

@@ -31,32 +31,44 @@
     </main>
 
 <!-- Carousel -->
-<div id="carouselCardControls" class="carousel slide p-5" data-bs-ride="carousel">
-    <h1 style="text-align: center;">Pilih Hewan Peliharaan</h1>
+    <div id="carouselCardControls" class="carousel slide p-5" data-bs-ride="carousel">
+    <h1 style="text-align: center; padding: 20px;">Pilih Hewan Peliharaan</h1>
     <div class="carousel-inner">
-        <!-- Item 1 -->
-        <div class="carousel-inner">
-    @forelse ($hewans as $hewan)
-        <div class="carousel-item active">
-            <div class="row">
-                <div class="col-md-2 offset-md-1">
-                    <div class="card">
-                        <img src="{{ asset('storage/' . $hewan->foto) }}" class="card-img-top" alt="{{ $hewan->nama_hewan }}">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">{{ $hewan->nama_hewan }}</h5>
-                            <a href="{{ route('adopsi.show', $hewan->id_hewan) }}" class="text-decoration-none text-muted">Lihat Detail</a>
-                        </div>
+
+    <div class="carousel-item active">
+        <div class="row">
+            @foreach($hewans->take(5) as $hewan)
+            <div class="col-md-2 @if($loop->first) offset-md-1 @endif">
+                <div class="card">
+                    <img src="{{ Storage::url($hewan->foto) }}" class="card-img-top" alt="{{ $hewan->nama_hewan }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ $hewan->nama_hewan }}</h5>
+                        <p class="card-text">{{ Str::limit($hewan->deskripsi, 50) }}</p>
+                        <a href="{{ route('admin.detailhewan', $hewan->id_hewan) }}" class="btn btn-card me-2">Lihat Detail >></a>
                     </div>
                 </div>
             </div>
-        </div>
-    @empty
-        <p>Tidak ada data hewan.</p>
-    @endforelse
-</div>
+            @endforeach
         </div>
     </div>
-</div>
+
+    <div class="carousel-item">
+        <div class="row">
+            @foreach($hewans->skip(5)->take(5) as $hewan)
+            <div class="col-md-2 @if($loop->first) offset-md-1 @endif">
+                <div class="card">
+                    <img src="{{ Storage::url($hewan->foto) }}" class="card-img-top" alt="{{ $hewan->nama_hewan }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ $hewan->nama_hewan }}</h5>
+                        <p class="card-text">{{ Str::limit($hewan->deskripsi, 50) }}</p>
+                        <a href="{{ route('admin.detailhewan', $hewan->id_hewan) }}" class="btn btn-card me-2">Lihat Detail >></a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    </div>
 
 
 
@@ -140,27 +152,7 @@
 </div>
     </div>
 
-<!-- Komentar -->
-<section class="komentar my-5">
-    <div class="container">
-        <h2 class="text-center mb-4">Bagikan Ceritamu</h2>
-        <form>
-            <!-- Tombol Tambah Gambar dan Video -->
-            <div class="mb-3 d-flex justify-content-start">
-                <button type="button" class="btn btn-outline-secondary me-2" title="Tambahkan Gambar">
-                    <i class="bi bi-image"></i> <!-- Bootstrap Icon untuk Gambar -->
-                </button>
-                <button type="button" class="btn btn-outline-secondary me-2" title="Tambahkan Video">
-                    <i class="bi bi-camera-video"></i> <!-- Bootstrap Icon untuk Video -->
-                </button>
-            </div>
-            <!-- Textarea -->
-            <div class="mb-3">
-                <textarea class="form-control" placeholder="Bagikan cerita menarik..." rows="5" required></textarea>
-            </div>
-            <!-- Tombol Kirim -->
-            <button type="submit" class="btn btn-primary btn-kirim">Kirim</button>
-        </form>
+
 
  <!-- Daftar Komentar -->
  <div class="mt-5">
