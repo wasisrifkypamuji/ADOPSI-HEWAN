@@ -62,8 +62,10 @@
         @enderror
     </div>
     <div class="d-grid">
-        <p class="text-muted text-end"><a href="" class="text-primary">Forget your password</a></p>
-        <button type="submit" class="btn btn-primary">Login</button>
+    <p class="text-muted text-end">
+        <a href="{{ route('password.request') }}" class="text-primary">Saya Lupa Password</a>
+    </p>
+<button type="submit" class="btn btn-primary">Login</button>
     </div>
 </form>
 
