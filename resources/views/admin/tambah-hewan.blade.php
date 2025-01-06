@@ -64,7 +64,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Nama</label>
+                            <label class="form-label">Nama Hewan</label>
                             <input type="text" name="nama_hewan" 
                                    class="form-control @error('nama_hewan') is-invalid @enderror" 
                                    value="{{ old('nama_hewan') }}" required>

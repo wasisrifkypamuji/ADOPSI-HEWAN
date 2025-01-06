@@ -19,13 +19,57 @@
                                 <h5 class="card-title h3 mb-4"><strong>Laporan
                                         {{ \Carbon\Carbon::parse($adp->created_at)->format('d F y') }}</strong></h5>
                                 <div class="d-flex justify-content-start gap-4 mb-4">
-                                    <img src="{{ asset('storage/' . $adp->foto) }}" alt="{{ $adp->adopsi->nama_hewan }}"
-                                        style="width: 300px;">
-                                    <video controls>
+                                    <!-- Image thumbnail -->
+                                    <img src="{{ asset('storage/' . $adp->foto) }}" 
+                                         alt="{{ $adp->adopsi->nama_hewan }}"
+                                         style="width: 300px; cursor: pointer;"
+                                         data-bs-toggle="modal"
+                                         data-bs-target="#imageModal{{ $adp->id }}">
+
+                                    <!-- Video thumbnail -->
+                                    <div style="width: 300px; cursor: pointer;"
+                                         data-bs-toggle="modal"
+                                         data-bs-target="#videoModal{{ $adp->id }}">
+                                        <video style="width: 100%;">
+                                            <source src="{{ asset('storage/' . $adp->video) }}" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                                <p>{{ $adp->deskripsi }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Modal -->
+                    <div class="modal fade" id="imageModal{{ $adp->id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Foto {{ $adp->adopsi->nama_hewan }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <img src="{{ asset('storage/' . $adp->foto) }}" 
+                                         alt="{{ $adp->adopsi->nama_hewan }}"
+                                         style="max-width: 100%; max-height: 80vh; object-fit: contain;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Modal -->
+                    <div class="modal fade" id="videoModal{{ $adp->id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Video {{ $adp->adopsi->nama_hewan }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <video controls style="max-width: 100%; max-height: 80vh;">
                                         <source src="{{ asset('storage/' . $adp->video) }}" type="video/mp4">
                                     </video>
                                 </div>
-                                <p>{{ $adp->deskripsi }}</p>
                             </div>
                         </div>
                     </div>
