@@ -87,7 +87,6 @@
 
     <div id="loading">Generating PDF...</div>
     
-    <button onclick="generatePDF()" style="margin: 20px;" class="btn btn-primary">Download PDF</button>
 
     <script>
         window.jsPDF = window.jspdf.jsPDF;

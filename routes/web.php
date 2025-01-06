@@ -83,7 +83,9 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/acc-donasi/{id}/download-bukti', [AccDonasiController::class, 'downloadBukti'])->name('acc-donasi.download-bukti');
     Route::get('/acc-donasi/{id}/status', [AccDonasiController::class, 'checkDonationStatus'])->name('acc-donasi.status');
     Route::post('/acc-donasi/{id}/update-upload-status', [AccDonasiController::class, 'updateUploadStatus'])->name('acc-donasi.update-upload-status');
-    Route::post('/acc-donasi/{id}/complete', [AccDonasiController::class, 'markAsCompleted'])->name('acc-donasi.complete');
+    Route::post('/acc-donasi/{id}/complete', [AccDonasiController::class, 'markAsCompleted'])->name('acc-donasi.complete');Route::get('/acc-donasi/bukti-terima/{id}', [AccDonasiController::class, 'buktiTerima'])->name('acc-donasi.bukti-terima');
+    Route::get('/acc-donasi/download-bukti/{id}', [AccDonasiController::class, 'downloadBuktiTerima'])->name('acc-donasi.download-bukti');
+    
 
 });
 
@@ -94,6 +96,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/donasi', [KirimHewanController::class, 'store'])->name('donasi.store');
     Route::delete('/donasi/{id}/batalkan', [KirimHewanController::class, 'batalkan'])->name('donasi.batalkan');
     Route::get('/acc-donasi/{id}/bukti-terima', [AccDonasiController::class, 'buktiTerima'])->name('acc-donasi.bukti-terima');
+});
+
+Route::get('/download-template-perjanjian', function() {
+    $filePath = public_path('templates/perjanjian-donasi.pdf');
+    
+    if (!file_exists($filePath)) {
+        abort(404, 'File tidak ditemukan');
+    }
+
+    $content = file_get_contents($filePath);
+    
+    return response($content)
+        ->header('Content-Type', 'application/pdf')
+        ->header('Content-Disposition', 'attachment; filename="perjanjian-donasi.pdf"')
+        ->header('Content-Length', strlen($content));
 });
 
 // routes untuk adopsi

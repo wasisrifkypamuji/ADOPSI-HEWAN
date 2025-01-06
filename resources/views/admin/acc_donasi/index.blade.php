@@ -97,9 +97,9 @@
                                             </form>
                                         @endif
 
-                                        @if($donation->status == 'disetujui')
+                                        @if(in_array($donation->status, ['disetujui', 'selesai']))
                                         <div class="d-flex flex-column gap-2">
-                                            @if($donation->status != 'selesai')
+                                            @if($donation->status == 'disetujui')
                                                 <form action="{{ route('admin.hewan.store') }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="id_kategori" value="{{ $donation->id_kategori }}">
@@ -117,13 +117,12 @@
                                                 </form>
                                             @endif
                                             
-                                            <a href="{{ route('acc-donasi.bukti-terima', $donation->id_kirim) }}" 
-                                            class="btn btn-secondary btn-sm"
-                                            target="_blank">
-                                                Unduh Bukti Terima
+                                            <a href="{{ route('acc-donasi.bukti-terima', $donation->id_kirim) }}" class="btn btn-secondary btn-sm" target="_blank">
+                                                Lihat Bukti Terima
                                             </a>
+                                            @endif
+
                                         </div>
-                                    @endif
                                     </div>
                                 </div>
                             </div>
@@ -221,12 +220,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                @if($donation->status == 'disetujui' && $donation->bukti_terima)
-                                    <a href="{{ route('acc-donasi.download-bukti', $donation->id_kirim) }}" 
-                                       class="btn btn-secondary btn-sm">
-                                        Unduh Bukti Terima
-                                    </a>
-                                @endif
+
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                             </div>
                         </div>
