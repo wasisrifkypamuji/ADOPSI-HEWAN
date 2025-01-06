@@ -16,10 +16,11 @@ class AdopsiController extends Controller
 {
     // Start with base query
     $query = Hewan::query()
-        ->whereNotIn('id_hewan', function($query) {
+        ->whereNotExists(function($query) {
             $query->select('id_hewan')
                   ->from('adopsi')
-                  ->where('status_adopsi', 'Disetujui');
+                  ->whereRaw('hewan.id_hewan = adopsi.id_hewan')
+                  ->whereIn('status_adopsi', ['pending', 'Disetujui']);
         });
     
     // Apply filters
@@ -39,6 +40,7 @@ class AdopsiController extends Controller
     return view('adopsi.index', compact('hewan', 'kategori'));
 }
 
+    
     public function show($id)
     {
         $hewan = Hewan::findOrFail($id);

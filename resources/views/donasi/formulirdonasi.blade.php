@@ -8,12 +8,6 @@
     <link rel="stylesheet" href="{{ asset('css/stylehome.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .accordion {
-            margin-bottom: 20px;
-        }
-        .accordion-button {
-            background-color: #e8f4ff !important;
-        }
         .form-control {
             background-color: #eee;
             border: none;
@@ -76,26 +70,56 @@
 
         <div class="bg-light p-4 rounded">
             <!-- Accordion Syarat -->
-            <div class="accordion mb-4" id="syaratAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#syaratCollapse" 
-                                style="background-color: #e8f4ff !important;">
-                            Syarat Menjadi Donatur
-                        </button>
-                    </h2>
-                    <div id="syaratCollapse" class="accordion-collapse collapse show" data-bs-parent="#syaratAccordion">
-                        <div class="accordion-body">
-                            <ol>
-                                <li>Sebuah saran dengan niat mulai dari awalpun yang positif, bahingga kita akan memberikan yang terbaik</li>
-                                <li>Memviderakan Perjanjian disaat final & Menjadwaan serta telah melakukan konirmasi</li>
-                                <li>Menjalankan proses dengan baik dan benar agar bisa terjalin suatu kerja sama yang baik</li>
-                                <li>MenaUtil dan menvideokan hainya yang diakinn</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="accordion mb-4 w-100" id="accordionExample" data-bs-parent="#accordionExample">
+           <div class="accordion-item">
+               <h2 class="accordion-header">
+                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                       Syarat Donasi Hewan
+                   </button>
+               </h2>
+               <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                   <div class="accordion-body">
+                       <ul>
+                           <li>Hewan dalam kondisi sehat dan terawat</li>
+                           <li>Memiliki surat keterangan sehat dari dokter hewan</li>
+                           <li>Usia minimal hewan 3 bulan</li>
+                           <li>Hewan sudah divaksin rabies (untuk anjing/kucing)</li>
+                           <li>Bersedia mengisi surat perjanjian donasi</li>
+                           <li>Menyertakan foto dan video kondisi hewan</li>
+                           <li>Memberikan informasi lengkap tentang riwayat kesehatan hewan</li>
+                       </ul>
+                   </div>
+               </div>
+           </div>
+           <div class="accordion-item">
+               <h2 class="accordion-header">
+                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                       Ketentuan Donasi Hewan
+                   </button>
+               </h2>
+               <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                   <div class="accordion-body">
+                       <ul>
+                           <li>Donasi bersifat sukarela dan tanpa biaya</li>
+                           <li>Data yang diberikan harus lengkap dan valid</li>
+                           <li>Proses verifikasi membutuhkan waktu 1-3 hari kerja</li>
+                           <li>Tim FindPet berhak menolak donasi jika tidak memenuhi syarat</li>
+                           <li>Pendonasi tidak dapat membatalkan donasi setelah disetujui</li>
+                           <li>Hewan yang didonasikan akan dirawat sesuai standar FindPet</li>
+                       </ul>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <!-- Checkbox Agreement -->
+       <div class="form-check mb-4">
+           <input class="form-check-input" type="checkbox" id="agreementCheck" required>
+           <label class="form-check-label" for="agreementCheck">
+               Saya menyetujui syarat dan ketentuan donasi hewan
+           </label>
+       </div>
+      
                         
             @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -199,17 +223,22 @@
 
                 <!-- Documents Section -->
                 <div class="mb-3">
-                    <label class="d-block mb-2">Upload perjanjian Donasi FindPet</label>
+                    <label class="d-block mb-2">Upload Perjanjian Donasi(PDF) </label>
                     <button type="button" class="btn btn-success btn-sm upload-btn" 
                             onclick="document.getElementById('perjanjian').click()">
                         Upload
                     </button>
+                    
+
                     <input type="file" id="perjanjian" name="surat_perjanjian" accept=".pdf" 
                            class="d-none" required>
+                    <a href="{{ url('/download-template-perjanjian') }}" class="btn btn-info btn-sm">
+                        <i class="fas fa-download me-1"></i> Unduh Template
+                    </a>
                 </div>
 
                 <div class="mb-4">
-                    <label class="d-block mb-2">Surat keterangan kesehatan hewan oleh dokter hewan</label>
+                    <label class="d-block mb-2">Surat Keterangan Kesehatan Hewan Oleh Dokter Hewan</label>
                     <button type="button" class="btn btn-success btn-sm upload-btn" 
                             onclick="document.getElementById('surat_sehat').click()">
                         Upload
@@ -244,6 +273,7 @@
                 reader.readAsDataURL(file);
             }
         });
+
 
         // Preview untuk video
         document.querySelector('#video-input').addEventListener('change', function(e) {
@@ -281,9 +311,27 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Mengirim...';
         });
+
+        document.getElementById('donasiForm').addEventListener('submit', function(e) {
+        if (!document.getElementById('agreementCheck').checked) {
+            e.preventDefault();
+            alert('Anda harus menyetujui syarat dan ketentuan terlebih dahulu');
+        }
+        });
+
     </script>
 
     <style>
+        
+        .accordion {
+        margin-bottom: 2rem;
+        }
+        .form-check {
+        margin: 1rem 0 2rem;
+        }
+        .form-control, .accordion {
+        width: 100%;
+        }
         .form-control {
             padding: 10px;
             margin-bottom: 15px;
@@ -299,10 +347,7 @@
             background-color: #4CAF50;
             border: none;
         }
-        .accordion-button:not(.collapsed) {
-            background-color: #e8f4ff;
-            color: black;
-        }
+        
 
         /* Tambahkan di bagian style formulirdonasi.blade.php */
         .alert {

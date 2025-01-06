@@ -47,6 +47,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         return view('homeadmin');
 
     })->name('homeadmin');
+    Route::get('/adopsi/riwayat', [AdminHewanController::class, 'riwayatAdopsi'])->name('admin.adopsi.riwayat');
+    Route::get('/adopsi/laporan/{id}', [AdminHewanController::class, 'report'])->name('admin.adopsi.laporan');
     // routes tambah hewan
     Route::get('/adopsi', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
     Route::get('/tambah-hewan', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
@@ -66,8 +68,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     // routes adopsi
     Route::get('/adopsi', [AdminHewanController::class, 'adoptions'])->name('admin.adopsi.index');
-    Route::get('/adopsi/riwayat', [AdminHewanController::class, 'riwayatAdopsi'])->name('admin.adopsi.riwayat');
-    Route::get('/adopsi/laporan/{id}', [AdminHewanController::class, 'report'])->name('admin.adopsi.laporan');
     Route::delete('/adopsi/{id}', [AdminHewanController::class, 'deleteAdoption'])->name('admin.adopsi.delete');
 
     // routes edit hewan
@@ -89,7 +89,9 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/acc-donasi/{id}/download-bukti', [AccDonasiController::class, 'downloadBukti'])->name('acc-donasi.download-bukti');
     Route::get('/acc-donasi/{id}/status', [AccDonasiController::class, 'checkDonationStatus'])->name('acc-donasi.status');
     Route::post('/acc-donasi/{id}/update-upload-status', [AccDonasiController::class, 'updateUploadStatus'])->name('acc-donasi.update-upload-status');
-    Route::post('/acc-donasi/{id}/complete', [AccDonasiController::class, 'markAsCompleted'])->name('acc-donasi.complete');
+    Route::post('/acc-donasi/{id}/complete', [AccDonasiController::class, 'markAsCompleted'])->name('acc-donasi.complete');Route::get('/acc-donasi/bukti-terima/{id}', [AccDonasiController::class, 'buktiTerima'])->name('acc-donasi.bukti-terima');
+    Route::get('/acc-donasi/download-bukti/{id}', [AccDonasiController::class, 'downloadBuktiTerima'])->name('acc-donasi.download-bukti');
+    
 
 });
 
@@ -101,6 +103,36 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/donasi/{id}/batalkan', [KirimHewanController::class, 'batalkan'])->name('donasi.batalkan');
     Route::get('/acc-donasi/{id}/bukti-terima', [AccDonasiController::class, 'buktiTerima'])->name('acc-donasi.bukti-terima');
 });
+
+Route::get('/download-template-perjanjian', function() {
+    $filePath = public_path('templates/perjanjian-donasi.pdf');
+    
+    if (!file_exists($filePath)) {
+        abort(404, 'File tidak ditemukan');
+    }
+
+    $content = file_get_contents($filePath);
+    
+    return response($content)
+        ->header('Content-Type', 'application/pdf')
+        ->header('Content-Disposition', 'attachment; filename="perjanjian-donasi.pdf"')
+        ->header('Content-Length', strlen($content));
+});
+
+Route::get('/download-template-adopsi', function() {
+    $filePath = public_path('templates/perjanjian-adopsi.pdf');
+    
+    if (!file_exists($filePath)) {
+        abort(404, 'File tidak ditemukan');
+    }
+
+    $content = file_get_contents($filePath);
+    
+    return response($content)
+        ->header('Content-Type', 'application/pdf')
+        ->header('Content-Disposition', 'attachment; filename="perjanjian-adopsi.pdf"')
+        ->header('Content-Length', strlen($content));
+})->name('download.template.adopsi');
 
 // routes untuk adopsi
 Route::get('/adopsi', [AdopsiController::class, 'index'])->name('adopsi.index')->middleware('auth');
@@ -154,4 +186,13 @@ Route::get('/adoptions/{id}/form', [AdopsiController::class, 'viewForm'])
     ->middleware('auth');
 
     Route::get('/adopsi/{id}/download', [AdopsiController::class, 'downloadPdf'])->name('adopsi.download-pdf');
+    
+
+    //passwot
+    Route::prefix('auth')->group(function () {
+        Route::get('/lupa-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+        Route::post('/lupa-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+        Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+        Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+    });
     

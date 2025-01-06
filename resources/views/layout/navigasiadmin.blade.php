@@ -24,37 +24,37 @@
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.adopsi.index') }}">Adopsi</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.tambah-hewan') }}">Tambah Hewan</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.permintaanadopsi') }}">Permintaan Adopsi</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Riwayat Adopsi</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('admin.adopsi.riwayat') }}">Riwayat Adopsi</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('acc-donasi.index') }}">Permintaan Donasi Hewan</a></li>
       </ul>
       <ul class="navbar-nav ms-auto">
-  @auth
-  <li class="nav-item">
-    <a class="navbar-brand profile-icon" href="#" id="profileIcon">
-      <img src="{{ asset('images/profil.png') }}" alt="Logo profil">
-    </a>
-  </li>
-  <div class="profile-sidebar" id="profileSidebar">
-    <div class="profile-header">
-      <img src="{{ asset('images/profil.png') }}" alt="Profile Picture">
-      <h3>{{ Auth::user()->username }}</h3>
-      
-      <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-        @csrf
-        <button type="submit" class="btn btn-danger btn-logout">Logout</button>
-      </form>
-    </div>
-  </div>
-  <div class="overlay" id="overlay"></div>
-  @else
-  <li class="nav-item">
-    <button class="btn-nav me-2" onclick="location.href='{{ route('signup') }}'">SignUp</button>
-  </li>
-  <li class="nav-item">
-    <button class="btn-nav me-2" onclick="location.href='{{ route('login') }}'">Login</button>
-  </li>
-  @endauth
-</ul>
+        @auth('admin')
+        <li class="nav-item">
+          <a class="navbar-brand profile-icon" href="#" id="profileIcon">
+            <img src="{{ asset('images/profil.png') }}" alt="Logo profil">
+          </a>
+        </li>
+        <div class="profile-sidebar" id="profileSidebar">
+          <div class="profile-header">
+            <img src="{{ asset('images/profil.png') }}" alt="Profile Picture">
+            <h3>{{ Auth::user()->username }}</h3>
+            
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+              @csrf
+              <button type="submit" class="btn btn-danger btn-logout">Logout</button>
+            </form>
+          </div>
+        </div>
+        <div class="overlay" id="overlay"></div>
+        @else
+        <li class="nav-item">
+          <button class="btn-nav me-2" onclick="location.href='{{ route('signup') }}'">SignUp</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn-nav me-2" onclick="location.href='{{ route('login') }}'">Login</button>
+        </li>
+        @endauth
+      </ul>
     </div>
   </div>
 </nav>

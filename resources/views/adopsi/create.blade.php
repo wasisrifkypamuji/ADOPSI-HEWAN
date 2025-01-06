@@ -48,20 +48,6 @@
                                    <li class="mb-2">Mengisi form perjanjian adopsi dengan lengkap</li>
                                    <li class="mb-2">Bersedia untuk dihubungi terkait survei pasca adopsi</li>
                                </ol>
-
-                               <div class="alert alert-info d-flex align-items-center mb-3">
-                                   <i class="bi bi-info-circle-fill me-2"></i>
-                                   <div>
-                                       Silakan download template surat perjanjian adopsi di bawah ini.
-                                       Isi dengan lengkap, tanda tangani, lalu upload kembali di form pengajuan.
-                                   </div>
-                               </div>
-
-                               <div class="text-center">
-                                   <a href="{{ route('download.template') }}" class="btn-nav">
-                                       <i class="bi bi-download me-2"></i>Download Template Surat Perjanjian
-                                   </a>
-                               </div>
                            </div>
                        </div>
                    </div>
@@ -178,6 +164,10 @@
                                <label class="form-label">Upload Surat Perjanjian (PDF/JPG/PNG, max 2MB) <span class="text-danger">*</span></label>
                                <input type="file" class="form-control" name="surat_perjanjian" accept=".pdf,.jpg,.jpeg,.png" required>
                                <div class="form-text">Format yang diterima: PDF, JPG, JPEG, PNG. Maksimal ukuran file 2MB.</div>
+
+                               <a href="{{ url('/download-template-adopsi') }}" class="btn btn-info btn-sm">
+                                <i class="fas fa-download me-1"></i> Unduh Template
+                              </a>
                            </div>
                        </div>
 

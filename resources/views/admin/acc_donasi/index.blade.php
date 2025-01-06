@@ -65,14 +65,41 @@
                                                   method="POST" 
                                                   class="d-inline">
                                                 @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#rejectModal{{ $donation->id_kirim }}">
                                                     Tolak
                                                 </button>
+                                                
+                                                <!-- Modal Tolak -->
+                                                <div class="modal fade" id="rejectModal{{ $donation->id_kirim }}" tabindex="-1">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Konfirmasi Penolakan</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Apakah Anda yakin ingin menolak permintaan donasi ini?</p>
+                                                                <form action="{{ route('acc-donasi.reject', $donation->id_kirim) }}" method="POST">
+                                                                    @csrf
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Alasan Penolakan:</label>
+                                                                        <textarea class="form-control" name="alasan_penolakan" rows="3" required></textarea>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-end gap-2">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="btn btn-danger">Ya, Tolak</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </form>
                                         @endif
 
-                                        @if($donation->status == 'disetujui')
-                                            @if($donation->status != 'selesai')
+                                        @if(in_array($donation->status, ['disetujui', 'selesai']))
+                                        <div class="d-flex flex-column gap-2">
+                                            @if($donation->status == 'disetujui')
                                                 <form action="{{ route('admin.hewan.store') }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="id_kategori" value="{{ $donation->id_kategori }}">
@@ -90,12 +117,12 @@
                                                 </form>
                                             @endif
                                             
-                                            <a href="{{ route('acc-donasi.bukti-terima', $donation->id_kirim) }}" 
-                                               class="btn btn-secondary btn-sm mt-2"
-                                               target="_blank">
-                                                Unduh Bukti Terima
+                                            <a href="{{ route('acc-donasi.bukti-terima', $donation->id_kirim) }}" class="btn btn-secondary btn-sm" target="_blank">
+                                                Lihat Bukti Terima
                                             </a>
-                                        @endif
+                                            @endif
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -193,12 +220,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                @if($donation->status == 'disetujui' && $donation->bukti_terima)
-                                    <a href="{{ route('acc-donasi.download-bukti', $donation->id_kirim) }}" 
-                                       class="btn btn-secondary btn-sm">
-                                        Unduh Bukti Terima
-                                    </a>
-                                @endif
+
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                             </div>
                         </div>
