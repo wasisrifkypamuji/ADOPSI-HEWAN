@@ -1,35 +1,47 @@
-/* Gaya untuk Card */
 .card {
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin: 20px 0;
-}
-
-.card-body {
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 0 0 15px 15px;
-}
-
-/* Gaya untuk Gambar */
-.card-body img {
+    transition: all 0.3s ease;
     border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+    margin-bottom: 2rem;
 }
-
-.card-body img:hover {
-    transform: scale(1.1);
+.card-header {
+    border-radius: 10px 10px 0 0;
+    padding: 1rem 1.5rem;
 }
-
-/* Modal Gaya */
-.modal-content {
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+.card-body {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
 }
-
+.media-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.media-item {
+    width: 200px;
+    height: 150px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.media-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.media-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.description {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
 .modal-body img,
 .modal-body video {
     width: 100%;
-    border-radius: 10px;
+    max-height: 70vh;
+    object-fit: contain;
 }

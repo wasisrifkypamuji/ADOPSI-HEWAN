@@ -33,7 +33,13 @@ Route::put('/profil/update', [UserController::class, 'update'])->name('editprofi
 
 
 
-Route::get('/historilaporan/{id_adopsi}', [LaporanController::class, 'index'])->name('historilaporan');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/laporan', [LaporanController::class, 'store'])->name('laporan.store');
+    Route::get('/historilaporan/{id_adopsi}', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::delete('/laporan/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
+});
+
+
 
 // Admin routes
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
