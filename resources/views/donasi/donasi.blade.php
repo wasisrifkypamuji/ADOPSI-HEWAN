@@ -70,7 +70,7 @@
                                                         Batalkan
                                                     </button>
                                                 </form>
-                                            @elseif($donation->status == 'disetujui')
+                                                @elseif($donation->status == 'disetujui' || $donation->status == 'selesai')
                                                 <a href="{{ route('acc-donasi.bukti-terima', $donation->id_kirim) }}" 
                                                    class="btn btn-success btn-sm"
                                                    target="_blank">
@@ -187,13 +187,6 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        @if($donation->status == 'disetujui')
-                                            <a href="{{ route('acc-donasi.bukti-terima', $donation->id_kirim) }}" 
-                                               class="btn btn-success btn-sm"
-                                               target="_blank">
-                                                Unduh Bukti Terima
-                                            </a>
-                                        @endif
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     </div>
                                 </div>

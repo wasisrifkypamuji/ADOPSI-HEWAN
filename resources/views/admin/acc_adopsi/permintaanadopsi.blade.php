@@ -35,7 +35,7 @@
                                 @elseif($adoption->status_adopsi == 'Disetujui')
                                     <span class="badge bg-success">Disetujui</span>
                                 @else
-                                    <span class="badge bg-warning">Menunggu</span>
+                                    <span class="badge bg-warning">Sedang DiProses</span>
                                 @endif
                             </p>
 
