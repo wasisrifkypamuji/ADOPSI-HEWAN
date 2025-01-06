@@ -26,6 +26,8 @@
                             <span class="badge bg-success">Disetujui</span>
                         @elseif($adoption->status_adopsi == 'Ditolak')
                             <span class="badge bg-danger">Ditolak</span>
+                        @elseif($adoption->status_adopsi == 'Dibatalkan')
+                            <span class="badge bg-secondary">Dibatalkan</span>
                         @endif
                     </p>
 

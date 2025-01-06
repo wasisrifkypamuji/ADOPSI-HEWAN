@@ -46,22 +46,28 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     // routes tambah hewan
     Route::get('/adopsi', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
     Route::get('/tambah-hewan', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
-    Route::get('/homeadmin', [AdminHewanController::class, 'showHewans']);
-    Route::get('/adopsi/{id_hewan}', [AdopsiController::class, 'show'])->name('adopsi.show');
     Route::post('/kategori', [AdminHewanController::class, 'storeKategori'])->name('admin.kategori.store');
     Route::delete('/kategori/{id}', [AdminHewanController::class, 'deleteKategori'])->name('admin.kategori.delete');
     Route::post('/hewan', [AdminHewanController::class, 'storeHewan'])->name('admin.hewan.store');
+    
+    Route::get('/admin/hewan/{id_hewan}/detail', [AdminHewanController::class, 'detail'])->name('admin.detailhewan');
 
     // routes komen
     Route::get('/homeadmin', [AdminHewanController::class, 'home'])->name('homeadmin.index');
 
-    // Route tambahan lainnya
+    // Route untuk komen
     Route::post('/komentar', [AdminHewanController::class, 'storeKomentar'])->name('komentar.store');
     Route::delete('/komentar/{id}', [AdminHewanController::class, 'deleteKomentar'])->name('komentar.destroy');
     Route::post('/komentar/{id}/reply', [AdminHewanController::class, 'replyKomentar'])->name('komentar.reply');
 
+    // routes adopsi
     Route::get('/adopsi', [AdminHewanController::class, 'adoptions'])->name('admin.adopsi.index');
     Route::delete('/adopsi/{id}', [AdminHewanController::class, 'deleteAdoption'])->name('admin.adopsi.delete');
+
+    // routes edit hewan
+    Route::get('/adopsi/{id}/edit', [AdopsiAdminController::class, 'edit'])->name('adopsi.edit');
+    Route::put('/adopsi/{id}', [AdopsiAdminController::class, 'update'])->name('adopsi.update');
+
 
     // Tambahkan routes untuk permintaan adopsi
     Route::get('/permintaanadopsi', [AdopsiAdminController::class, 'index'])->name('admin.permintaanadopsi');

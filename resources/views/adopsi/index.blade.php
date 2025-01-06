@@ -59,7 +59,7 @@
 
        @if($hewan->isEmpty())
            <div class="alert alert-warning text-center">
-               Belum ada data hewan.
+               Belum ada hewan yang tersedia untuk diadopsi.
            </div>
        @else
            <div class="row">
@@ -72,9 +72,11 @@
                             style="height: 200px; object-fit: cover;">
                        <div class="card-body text-center">
                            <h5 class="card-title">{{ $pet->nama_hewan }}</h5>
+                           <p class="text-muted mb-2">{{ $pet->nama_kategori }} - {{ $pet->gender }}</p>
+                           <p class="text-muted mb-3">Usia: {{ $pet->umur }} Bulan</p>
                            <a href="{{ route('adopsi.show', $pet->id_hewan) }}" 
-                              class="text-decoration-none text-muted">
-                               Klik untuk detail >>
+                              class="btn btn-sm" style="background-color: #ff6b35; color: white;">
+                               Adopsi Sekarang
                            </a>
                        </div>
                    </div>
@@ -92,6 +94,10 @@
            border-radius: 15px;
            overflow: hidden;
            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+           transition: transform 0.3s ease;
+       }
+       .card:hover {
+           transform: translateY(-5px);
        }
        .btn:hover {
            background-color: #e55a2b !important;

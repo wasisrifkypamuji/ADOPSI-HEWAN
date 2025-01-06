@@ -26,25 +26,22 @@
                         <label>Jenis Kelamin:</label>
                         <select name="jenis_kelamin" class="form-control">
                             <option value="">Pilih Jenis Kelamin</option>
-                            <option value="Jantan" {{ request('jenis_kelamin') == 'Jantan' ? 'selected' : '' }}>Jantan
-                            </option>
-                            <option value="Betina" {{ request('jenis_kelamin') == 'Betina' ? 'selected' : '' }}>Betina
-                            </option>
+                            <option value="Jantan" {{ request('jenis_kelamin') == 'Jantan' ? 'selected' : '' }}>Jantan</option>
+                            <option value="Betina" {{ request('jenis_kelamin') == 'Betina' ? 'selected' : '' }}>Betina</option>
                         </select>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label>Usia:</label>
-                        <input type="number" name="usia" class="form-control" min="0"
-                            value="{{ request('usia') }}">
+                        <input type="number" name="usia" class="form-control" min="0" value="{{ request('usia') }}">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label>&nbsp;</label>
-                        <button type="submit" class="btn w-100"
-                            style="background-color: #ff6b35; color: white;">Cari</button>
+                        <button type="submit" class="btn w-100" style="background-color: #ff6b35; color: white;">Cari</button>
                     </div>
                 </div>
             </form>
         </div>
+
         @if ($hewan->isEmpty())
             <div class="alert alert-warning text-center">
                 Belum ada data hewan.
@@ -59,7 +56,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ $pet->nama_hewan }}</h5>
                                 <div class="d-flex gap-4">
-                                    <button class="btn btn-success">Ubah</button>
+                                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal{{ $pet->id_hewan }}">Ubah</button>
                                     <form method="POST" action="{{ route('admin.adopsi.delete', $pet->id_hewan) }}"
                                         class="d-inline"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus adopsi hewan ini?')">
@@ -71,27 +68,68 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal Edit untuk setiap hewan -->
+                    <div class="modal fade" id="editModal{{ $pet->id_hewan }}" tabindex="-1" aria-labelledby="editModalLabel{{ $pet->id_hewan }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel{{ $pet->id_hewan }}">Edit Data Hewan: {{ $pet->nama_hewan }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('adopsi.update', $pet->id_hewan) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="nama_hewan_{{ $pet->id_hewan }}" class="form-label">Nama</label>
+                                            <input type="text" class="form-control" id="nama_hewan_{{ $pet->id_hewan }}" name="nama_hewan" value="{{ $pet->nama_hewan }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="ras_{{ $pet->id_hewan }}" class="form-label">Ras</label>
+                                            <input type="text" class="form-control" id="ras_{{ $pet->id_hewan }}" name="ras" value="{{ $pet->ras }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="usia_{{ $pet->id_hewan }}" class="form-label">Usia</label>
+                                            <input type="number" class="form-control" id="usia_{{ $pet->id_hewan }}" name="usia" value="{{ $pet->usia }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="gender_{{ $pet->id_hewan }}" class="form-label">Jenis Kelamin</label>
+                                            <select class="form-control" id="gender_{{ $pet->id_hewan }}" name="jenis_kelamin" required>
+                                                <option value="Jantan" {{ $pet->jenis_kelamin == 'Jantan' ? 'selected' : '' }}>Jantan</option>
+                                                <option value="Betina" {{ $pet->jenis_kelamin == 'Betina' ? 'selected' : '' }}>Betina</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="deskripsi_{{ $pet->id_hewan }}" class="form-label">Deskripsi</label>
+                                            <textarea class="form-control" id="deskripsi_{{ $pet->id_hewan }}" name="deskripsi" rows="4" required>{{ $pet->deskripsi }}</textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="foto_{{ $pet->id_hewan }}" class="form-label">Foto</label>
+                                            <div class="mb-3">
+                                                <img src="{{ asset('storage/' . $pet->foto) }}" alt="Foto {{ $pet->nama_hewan }}" class="img-fluid rounded" style="max-height: 200px;">
+                                            </div>
+                                            <input type="file" class="form-control" id="foto_{{ $pet->id_hewan }}" name="foto" accept="image/*">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
             </div>
-
-            <div class="d-flex justify-content-center mt-4">
-                {{ $hewan->links() }}
-            </div>
         @endif
-    </section>
-
-    <!-- Pagination -->
-    <section class="container text-center my-4">
-        {!! $hewan->links() !!}
     </section>
 
     <footer class="bg-light text-center py-4">
         <div class="container">
             <h5>Findpet.</h5>
-            <p>Temukan teman setia Anda di Findpet - platform adopsi hewan terpercaya untuk memberi mereka rumah penuh
-                kasih!</p>
-            <p><a href="#" class="text-decoration-none">Contact</a> | <a href="#"
-                    class="text-decoration-none">How To Adopt?</a></p>
+            <p>Temukan teman setia Anda di Findpet - platform adopsi hewan terpercaya untuk memberi mereka rumah penuh kasih!</p>
+            <p><a href="#" class="text-decoration-none">Contact</a> | <a href="#" class="text-decoration-none">How To Adopt?</a></p>
         </div>
     </footer>
 
