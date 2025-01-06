@@ -41,6 +41,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         return view('homeadmin');
 
     })->name('homeadmin');
+    Route::get('/adopsi/riwayat', [AdminHewanController::class, 'riwayatAdopsi'])->name('admin.adopsi.riwayat');
+    Route::get('/adopsi/laporan/{id}', [AdminHewanController::class, 'report'])->name('admin.adopsi.laporan');
     // routes tambah hewan
     Route::get('/adopsi', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
     Route::get('/tambah-hewan', [AdminHewanController::class, 'index'])->name('admin.tambah-hewan');
@@ -59,8 +61,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/komentar/{id}/reply', [AdminHewanController::class, 'replyKomentar'])->name('komentar.reply');
 
     Route::get('/adopsi', [AdminHewanController::class, 'adoptions'])->name('admin.adopsi.index');
-    Route::get('/adopsi/riwayat', [AdminHewanController::class, 'riwayatAdopsi'])->name('admin.adopsi.riwayat');
-    Route::get('/adopsi/laporan/{id}', [AdminHewanController::class, 'report'])->name('admin.adopsi.laporan');
     Route::delete('/adopsi/{id}', [AdminHewanController::class, 'deleteAdoption'])->name('admin.adopsi.delete');
 
     // Tambahkan routes untuk permintaan adopsi

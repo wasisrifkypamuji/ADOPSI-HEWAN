@@ -101,13 +101,14 @@
           <a class="nav-link" href="{{ route('admin.tambah-hewan') }}">Tambah Hewan</a>
         </li>
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.permintaanadopsi') }}">Permintaan Adopsi</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Riwayat Adopsi</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('admin.adopsi.riwayat') }}">Riwayat 
+          Adopsi</a></li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('acc-donasi.index') }}">Permintaan Donasi Hewan</a>
       </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-  @auth
+  @auth('admin')
   <li class="nav-item">
     <a class="navbar-brand profile-icon" href="#" id="profileIcon">
       <img src="{{ asset('images/profil.png') }}" alt="Logo profil">
