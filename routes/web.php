@@ -113,6 +113,21 @@ Route::get('/download-template-perjanjian', function() {
         ->header('Content-Length', strlen($content));
 });
 
+Route::get('/download-template-adopsi', function() {
+    $filePath = public_path('templates/perjanjian-adopsi.pdf');
+    
+    if (!file_exists($filePath)) {
+        abort(404, 'File tidak ditemukan');
+    }
+
+    $content = file_get_contents($filePath);
+    
+    return response($content)
+        ->header('Content-Type', 'application/pdf')
+        ->header('Content-Disposition', 'attachment; filename="perjanjian-adopsi.pdf"')
+        ->header('Content-Length', strlen($content));
+})->name('download.template.adopsi');
+
 // routes untuk adopsi
 Route::get('/adopsi', [AdopsiController::class, 'index'])->name('adopsi.index')->middleware('auth');
 Route::get('/adopsi/{id}', [AdopsiController::class, 'show'])->name('adopsi.show');
