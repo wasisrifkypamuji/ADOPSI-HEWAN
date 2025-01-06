@@ -96,4 +96,15 @@ public function store(Request $request)
 
     return redirect()->back()->with('success', 'Donasi berhasil dibatalkan');
 }
+
+public function reject(Request $request, $id)
+{
+    $donation = KirimHewan::findOrFail($id);
+    $donation->status = 'ditolak';
+    $donation->alasan_penolakan = $request->alasan_penolakan; // Pastikan field ini tersimpan
+    $donation->save();
+    
+    return redirect()->back()->with('success', 'Donasi berhasil ditolak');
 }
+}
+
