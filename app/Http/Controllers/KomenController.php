@@ -11,61 +11,91 @@ class KomenController extends Controller
 {
     public function reply(Request $request, $parent_id)
     {
-        // Validasi user harus login
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu');
-        }
+        // Ganti pengecekan berdasarkan guard yang sedang aktif
+    $isAdmin = Auth::guard('admin')->check();
+    
+    $request->validate([
+        'komen' => 'required|string|max:1000',
+        'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'video' => 'nullable|mimes:mp4,mov,avi,wmv|max:10240',
+    ]);
 
-        $request->validate([
-            'komen' => 'required|string'
-        ]);
+    $reply = new Komen();
 
-        $reply = new Komen();
-        $reply->user_id = Auth::id();
-        $reply->id_admin = 1;
-        $reply->username = Auth::user()->username;
-        $reply->komen = $request->komen;
-        $reply->parent_id = $parent_id;
-
-        if ($request->hasFile('foto')) {
-            $foto = $request->file('foto')->store('komen/foto', 'public');
-            $reply->foto = $foto;
-        }
-
-        if ($request->hasFile('video')) {
-            $video = $request->file('video')->store('komen/video', 'public');
-            $reply->video = $video;
-        }
-
-        $reply->save();
-
-        return redirect()->back()->with('success', 'Balasan berhasil ditambahkan!');
+    if ($isAdmin) {
+        // Jika yang login adalah admin
+        $reply->id_admin = Auth::guard('admin')->id();
+        $reply->username = 'Admin';
+        $reply->user_id = null;
+    } else {
+        // Jika yang login adalah user biasa
+        $reply->user_id = Auth::guard('web')->id();
+        $reply->username = Auth::guard('web')->user()->username;
+        $reply->id_admin = null;
     }
+
+    $reply->komen = $request->komen;
+    $reply->parent_id = $parent_id;
+
+    if ($request->hasFile('foto')) {
+        $foto = $request->file('foto')->store('komen/foto', 'public');
+        $reply->foto = $foto;
+    }
+
+    if ($request->hasFile('video')) {
+        $video = $request->file('video')->store('komen/video', 'public');
+        $reply->video = $video;
+    }
+
+    $reply->save();
+
+    return redirect()->back()->with('success', 'Balasan berhasil ditambahkan!');
+    }
+    
+    
 
     public function destroy($id)
     {
-        // Validasi user harus login
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu');
-        }
-
         $komen = Komen::findOrFail($id);
         
-        // Check if the authenticated user owns this comment
-        if (Auth::id() !== $komen->user_id) {
-            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk menghapus komentar ini!');
+        // Cek jika yang login adalah admin
+        if (Auth::guard('admin')->check()) {
+            // Admin bisa menghapus komentar/balasan admin
+            if ($komen->id_admin !== null && $komen->id_admin === Auth::guard('admin')->id()) {
+                // Hapus file terkait jika ada
+                if ($komen->foto) {
+                    Storage::disk('public')->delete($komen->foto);
+                }
+                if ($komen->video) {
+                    Storage::disk('public')->delete($komen->video);
+                }
+                
+                $komen->delete();
+                return redirect()->back()->with('success', 'Balasan berhasil dihapus!');
+            } else {
+                return redirect()->back()->with('error', 'Admin hanya dapat menghapus balasan miliknya sendiri!');
+            }
+        } 
+        // Cek jika yang login adalah user
+        else if (Auth::guard('web')->check()) {
+            // User hanya bisa menghapus komentar/balasan miliknya sendiri
+            if ($komen->user_id !== Auth::id()) {
+                return redirect()->back()->with('error', 'Anda hanya dapat menghapus komentar/balasan Anda sendiri!');
+            }
+            
+            // Hapus file terkait jika ada
+            if ($komen->foto) {
+                Storage::disk('public')->delete($komen->foto);
+            }
+            if ($komen->video) {
+                Storage::disk('public')->delete($komen->video);
+            }
+            
+            $komen->delete();
+            return redirect()->back()->with('success', 'Komentar berhasil dihapus!');
+        } else {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu');
         }
-
-        // Delete associated files if they exist
-        if ($komen->foto) {
-            Storage::disk('public')->delete($komen->foto);
-        }
-        if ($komen->video) {
-            Storage::disk('public')->delete($komen->video);
-        }
-
-        $komen->delete();
-        return redirect()->back()->with('success', 'Komentar berhasil dihapus!');
     }
     public function ambilKomentar()
 {

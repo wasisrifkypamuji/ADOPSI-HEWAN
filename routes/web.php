@@ -55,11 +55,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     // routes komen
     Route::get('/homeadmin', [AdminHewanController::class, 'home'])->name('homeadmin.index');
 
-    // Route untuk komen
-    Route::post('/komentar', [AdminHewanController::class, 'storeKomentar'])->name('komentar.store');
-    Route::delete('/komentar/{id}', [AdminHewanController::class, 'deleteKomentar'])->name('komentar.destroy');
-    Route::post('/komentar/{id}/reply', [AdminHewanController::class, 'replyKomentar'])->name('komentar.reply');
-
     // routes adopsi
     Route::get('/adopsi', [AdminHewanController::class, 'adoptions'])->name('admin.adopsi.index');
     Route::delete('/adopsi/{id}', [AdminHewanController::class, 'deleteAdoption'])->name('admin.adopsi.delete');
@@ -125,8 +120,9 @@ Route::middleware(['auth'])->group(function () {
 // komen
 Route::post('/komentar', [KomenController::class, 'simpanKomentar'])->name('komentar.simpan');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:web,admin')->group(function () {
     Route::post('/komentar/{parent_id}/reply', [KomenController::class, 'reply'])->name('komentar.reply');
+    // Tambahkan name untuk route delete
     Route::delete('/komentar/{id}', [KomenController::class, 'destroy'])->name('komentar.destroy');
 });
 

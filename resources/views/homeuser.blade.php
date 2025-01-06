@@ -196,8 +196,8 @@
       </div>
     </div>
 
-    <!-- daftar komen -->
-    <div class="comments-list">
+   <!-- daftar komen -->
+   <div class="comments-list">
       <h2 class="text-center mb-4">Cerita Orang</h2>
       @foreach($komentars as $komentar)
         <div class="comment-card card mb-3">
@@ -232,14 +232,14 @@
                 </button>
                 
                 @if(Auth::id() === $komentar->user_id)
-                  <form action="{{ route('komentar.destroy', $komentar->id_komen) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn text-danger btn-sm" 
-                            onclick="return confirm('Apakah Anda yakin ingin menghapus komentar ini?')">
-                      <i class="bi bi-trash"></i> Hapus
-                    </button>
-                  </form>
+                <form action="{{ route('komentar.destroy', $komentar->id_komen) }}" method="POST" class="d-inline">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn text-danger btn-sm" 
+            onclick="return confirm('Apakah Anda yakin ingin menghapus komentar ini?')">
+        <i class="bi bi-trash"></i> Hapus
+    </button>
+</form>
                 @endif
               @endif
             </div>
