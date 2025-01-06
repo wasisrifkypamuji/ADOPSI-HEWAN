@@ -45,26 +45,27 @@ class AccDonasiController extends Controller
         }
     }
 
-    public function reject($id)
-    {
-        try {
-            $donation = KirimHewan::findOrFail($id);
-            
-            $donation->update([
-                'status' => 'ditolak',
-                'id_admin' => Auth::guard('admin')->id()
-            ]);
+    public function reject(Request $request, $id)
+{
+    try {
+        $donation = KirimHewan::findOrFail($id);
+        
+        $donation->update([
+            'status' => 'ditolak',
+            'id_admin' => Auth::guard('admin')->id(),
+            'alasan_penolakan' => $request->alasan_penolakan  // Tambahkan ini
+        ]);
 
-            return redirect()
-                ->back()
-                ->with('success', 'Donasi ditolak');
-                
-        } catch (\Exception $e) {
-            return redirect()
-                ->back()
-                ->with('error', 'Gagal menolak donasi: ' . $e->getMessage());
-        }
+        return redirect()
+            ->back()
+            ->with('success', 'Donasi ditolak');
+            
+    } catch (\Exception $e) {
+        return redirect()
+            ->back()
+            ->with('error', 'Gagal menolak donasi: ' . $e->getMessage());
     }
+}
 
     public function buktiTerima($id)
     {
