@@ -63,18 +63,18 @@
         @endforeach
       </div>
     </div>
+    <!-- Tombol navigasi -->
+    <button class="carousel-control-prev btn btn-nav me-2" type="button" data-bs-target="#carouselCardControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next btn btn-nav me-2" type="button" data-bs-target="#carouselCardControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
   </div>
 
-  <!-- Tombol navigasi -->
-  <button class="carousel-control-prev btn btn-nav me-2" type="button" data-bs-target="#carouselCardControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next btn btn-nav me-2" type="button" data-bs-target="#carouselCardControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
 
   <!-- acordion -->
   <h1 style="text-align: center;">Pertanyaan Umum</h1>
@@ -233,13 +233,13 @@
                 
                 @if(Auth::id() === $komentar->user_id)
                 <form action="{{ route('komentar.destroy', $komentar->id_komen) }}" method="POST" class="d-inline">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn text-danger btn-sm" 
-            onclick="return confirm('Apakah Anda yakin ingin menghapus komentar ini?')">
-        <i class="bi bi-trash"></i> Hapus
-    </button>
-</form>
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn text-danger btn-sm" 
+                            onclick="return confirm('Apakah Anda yakin ingin menghapus komentar ini?')">
+                        <i class="bi bi-trash"></i> Hapus
+                    </button>
+                </form>
                 @endif
               @endif
             </div>
