@@ -38,8 +38,10 @@
           <div class="profile-header">
             <img src="{{ asset('images/profil.png') }}" alt="Profile Picture">
             <h3>{{ Auth::user()->username }}</h3>
-            
-            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+            @if (Auth::user()->id_admin == 1)
+              <a href="{{ route('admin.create') }}" class="btn btn-success btn-add">Tambah Admin</a>
+            @endif
+              <form action="{{ route('logout') }}" method="POST" style="display: inline;">
               @csrf
               <button type="submit" class="btn btn-danger btn-logout">Logout</button>
             </form>

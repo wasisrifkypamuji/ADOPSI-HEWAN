@@ -49,7 +49,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
     
-        return redirect()->route('signup.form')->with('success', 'You have successfully registered!');
+        return redirect('login')->with('success', 'Pendaftaran Berhasilll!');
     }
 
     public function edit()

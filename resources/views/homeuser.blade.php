@@ -12,6 +12,12 @@
   </head>
 <body>
 
+  @if(session('success'))
+      <div class="mt-4 alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  @endif
     <div class="container bg-gray p-5" style="color: white;">
       <h1>Temukan Hewan Peliharaan Yang Kamu Sukai!</h1>
       <p style="font-family: Arial, Helvetica, sans-serif;">FindaPet membantu Anda menemukan hewan peliharaan <br>
