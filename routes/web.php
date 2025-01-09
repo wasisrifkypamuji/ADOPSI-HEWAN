@@ -11,6 +11,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AccDonasiController;
 use App\Http\Controllers\KomenController;
 use App\Http\Controllers\AdopsiAdminController;
+use App\Http\Controllers\admincontrol;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 
@@ -192,3 +193,8 @@ Route::get('/adoptions/{id}/form', [AdopsiController::class, 'viewForm'])
         Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
     });
     
+    //tambah admin
+    Route::prefix('admin')->middleware('auth:admin')->group(function () {
+        Route::get('/tambah-admin', [AdminControl::class, 'showAddAdminForm'])->name('admin.create');
+        Route::post('/tambah-admin', [AdminControl::class, 'store'])->name('admin.store');
+    });

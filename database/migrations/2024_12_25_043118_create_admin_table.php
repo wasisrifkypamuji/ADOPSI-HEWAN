@@ -9,7 +9,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('admin', function (Blueprint $table) {
-            $table->bigIncrements('id_admin');  // Custom primary key
+            $table->bigIncrements('id_admin'); 
+            $table->string('email');
             $table->string('username');
             $table->string('password');
             $table->timestamps();

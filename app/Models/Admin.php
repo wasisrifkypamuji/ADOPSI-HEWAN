@@ -9,7 +9,7 @@ class Admin extends Authenticatable
     protected $table = 'admin';
     protected $primaryKey = 'id_admin';
 
-    protected $fillable = ['username', 'password'];
+    protected $fillable = ['username', 'email', 'password'];
 
     public function setPasswordAttribute($value)
     {
