@@ -27,7 +27,7 @@ class AdminHewanController extends Controller
         $komentars = Komen::whereNull('parent_id') // Hanya komentar utama
             ->orderBy('created_at', 'desc')
             ->get();
-    
+
         return view('homeadmin', compact('hewans', 'komentars'));
     }
 
@@ -40,7 +40,7 @@ class AdminHewanController extends Controller
     public function detail($id_hewan)
     {
         $hewan = Hewan::findOrFail($id_hewan);
-    
+
         // Pastikan Anda merujuk ke lokasi folder views/admin/detailhewan.blade.php
         return view('admin.detailhewan', compact('hewan'));
     }
@@ -151,7 +151,13 @@ class AdminHewanController extends Controller
 
     public function adoptions(Request $request)
     {
-        $query = Hewan::query();
+        $query = Hewan::query()
+            ->whereNotExists(function ($query) {
+                $query->select('id_hewan')
+                    ->from('adopsi')
+                    ->whereRaw('hewan.id_hewan = adopsi.id_hewan')
+                    ->whereIn('status_adopsi', ['pending', 'Disetujui']);
+            });
 
         if ($request->filled('jenis_hewan')) {
             $query->where('nama_kategori', $request->jenis_hewan);
@@ -171,7 +177,7 @@ class AdminHewanController extends Controller
 
     public function riwayatAdopsi()
     {
-        $adopsi = Adopsi::with('hewan')->where('id_admin', Auth::guard('admin')->id())->paginate(12);
+        $adopsi = Adopsi::with('hewan')->where('status_adopsi', 'Disetujui')->where('id_admin', Auth::guard('admin')->id())->paginate(12);
         return view('admin.riwayat-adopsi', compact('adopsi'));
     }
 
