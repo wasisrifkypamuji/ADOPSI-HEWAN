@@ -11,22 +11,23 @@ class KirimHewan extends Model
     public $timestamps = true;
     
     protected $fillable = [
-        'id_admin', 
+        'id_admin',
         'user_id', 
-        'id_kategori', 
+        'id_kategori',
         'nama_kategori',
-        'nama_lengkap', 
-        'nama_hewan', 
-        'deskripsi', 
+        'nama_lengkap',
+        'nama_hewan',
+        'deskripsi',
         'usia',
-        'gender', 
-        'foto', 
-        'video', 
+        'gender',
+        'ras',
+        'foto',
+        'video',
         'surat_perjanjian',
-        'surat_keterangan_sehat', 
+        'surat_keterangan_sehat',
         'status',
-        'bukti_terima',
-        'alasan_penolakan'
+        'alasan_penolakan',
+        'bukti_terima'
     ];
 
     public function admin()

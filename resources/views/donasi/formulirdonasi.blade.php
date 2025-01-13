@@ -181,6 +181,11 @@
                 </div>
 
                 <div class="mb-3">
+                    <input type="text" name="ras" class="form-control bg-gray-100 border-0" 
+                           placeholder="Ras Hewan" required value="{{ old('ras') }}">
+                </div>
+
+                <div class="mb-3">
                     <textarea name="deskripsi" class="form-control bg-gray-100 border-0" rows="4" 
                               placeholder="Deskripsi" required>{{ old('deskripsi') }}</textarea>
                 </div>

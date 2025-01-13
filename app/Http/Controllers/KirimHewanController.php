@@ -41,6 +41,7 @@ public function store(Request $request)
             'deskripsi' => 'required|string',
             'usia' => 'required|string',
             'gender' => 'required|in:Jantan,Betina',
+            'ras' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg',
             'video' => 'nullable|mimes:mp4,mov,avi|max:20480',
             'surat_perjanjian' => 'required|mimes:pdf',
