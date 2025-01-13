@@ -6,6 +6,12 @@
   <title>PetAdopt</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/stylehome.css') }}">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
 
