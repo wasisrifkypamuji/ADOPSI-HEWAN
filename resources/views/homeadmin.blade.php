@@ -242,7 +242,7 @@
             </div>
 
  <!-- balasan komen-->
-@if($komentar->replies && $komentar->replies->count() > 0)
+ @if($komentar->replies && $komentar->replies->count() > 0)
   <div class="replies-list ms-4 mt-3">
     @foreach($komentar->replies as $reply)
       <div class="reply-card card mb-2">
@@ -274,7 +274,7 @@
               </button>
             @endif
 
-            @if(Auth::guard('admin')->check() && $reply->username === 'Admin')
+            @if(Auth::guard('admin')->check())
               <form action="{{ route('komentar.destroy', $reply->id_komen) }}" method="POST" class="d-inline">
                 @csrf
                 @method('DELETE')
