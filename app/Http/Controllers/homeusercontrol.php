@@ -10,10 +10,16 @@ class homeusercontrol extends Controller
 {
     public function index()
     {
-        $hewans = Hewan::with(['admin'])
+        $hewans = Hewan::query()
+        ->whereNotExists(function($query){
+            $query->select('id_hewan')
+            ->from('adopsi')
+            ->whereRaw('hewan.id_hewan = adopsi.id_hewan')
+            ->whereIn('status_adopsi', ['pending', 'Disetujui']);
+        })
         ->take(10)
-        ->orderBy('created_at', 'desc')
         ->get();
+        
         
     $komentars = Komen::with(['user', 'admin', 'replies'])
         ->whereNull('parent_id')
