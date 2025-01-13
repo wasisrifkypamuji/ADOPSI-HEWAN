@@ -13,6 +13,7 @@
 
     @section('content')
     <div class="container mt-4">
+        <h1 class="text-center mb-4">Detail Hewan</h1>
         <div class="row">
             <div class="col-md-6">
                 <img src="{{ asset('storage/'.$hewan->foto) }}" 
@@ -35,7 +36,7 @@
                         </div>
                         <div class="col-md-4">
                             <p class="mb-0">Umur</p>
-                            <strong>{{ $hewan->umur }}</strong>
+                            <strong>{{ $hewan->umur }} Bulan</strong>
                         </div>
                     </div>
                 </div>

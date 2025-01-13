@@ -87,7 +87,7 @@
                                                         <input type="hidden" name="gender" value="{{ $donation->gender }}">
                                                         <input type="hidden" name="deskripsi" value="{{ $donation->deskripsi }}">
                                                         <input type="hidden" name="existing_foto" value="{{ $donation->foto }}">
-                                                        <input type="hidden" name="ras" value="-">
+                                                        <input type="hidden" name="ras" value="{{ $donation->ras ?? '-' }}">
                                                         <input type="hidden" name="status_adopsi" value="Tersedia">
                                                         <button type="submit" class="btn btn-primary btn-sm">
                                                             Upload Hewan
@@ -149,6 +149,10 @@
                                             <tr>
                                                 <th>Gender</th>
                                                 <td>{{ $donation->gender }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Ras</th>
+                                                <td>{{ $donation->ras ?? '-' }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Status</th>
