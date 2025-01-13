@@ -56,25 +56,20 @@ class KomenController extends Controller
 
     public function destroy($id)
     {
-        $komen = Komen::findOrFail($id);
+            $komen = Komen::findOrFail($id);
         
         // Cek jika yang login adalah admin
         if (Auth::guard('admin')->check()) {
-            // Admin bisa menghapus komentar/balasan admin
-            if ($komen->id_admin !== null && $komen->id_admin === Auth::guard('admin')->id()) {
-                // Hapus file terkait jika ada
-                if ($komen->foto) {
-                    Storage::disk('public')->delete($komen->foto);
-                }
-                if ($komen->video) {
-                    Storage::disk('public')->delete($komen->video);
-                }
-                
-                $komen->delete();
-                return redirect()->back()->with('success', 'Balasan berhasil dihapus!');
-            } else {
-                return redirect()->back()->with('error', 'Admin hanya dapat menghapus balasan miliknya sendiri!');
+            // Admin bisa menghapus semua komentar/balasan
+            if ($komen->foto) {
+                Storage::disk('public')->delete($komen->foto);
             }
+            if ($komen->video) {
+                Storage::disk('public')->delete($komen->video);
+            }
+            
+            $komen->delete();
+            return redirect()->back()->with('success', 'Komentar berhasil dihapus!');
         } 
         // Cek jika yang login adalah user
         else if (Auth::guard('web')->check()) {
