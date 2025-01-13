@@ -97,7 +97,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/donasi/create', [KirimHewanController::class, 'create'])->name('donasi.create');
     Route::post('/donasi', [KirimHewanController::class, 'store'])->name('donasi.store');
     Route::delete('/donasi/{id}/batalkan', [KirimHewanController::class, 'batalkan'])->name('donasi.batalkan');
-    Route::get('/acc-donasi/{id}/bukti-terima', [AccDonasiController::class, 'buktiTerima'])->name('acc-donasi.bukti-terima');
+    Route::get('/acc-donasi/{id}/bukti-terima', [AccDonasiController::class, 'buktiTerima'])
+        ->name('acc-donasi.bukti-terima')
+        ->middleware(['auth.donation']);// Tambahkan middleware ini
 });
 
 Route::get('/download-template-perjanjian', function() {

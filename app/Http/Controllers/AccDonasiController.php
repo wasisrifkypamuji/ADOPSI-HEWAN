@@ -112,32 +112,31 @@ class AccDonasiController extends Controller
     
 
     public function buktiTerima($id)
-    {
-        try {
-            $donation = KirimHewan::with(['user', 'kategori'])->findOrFail($id);
-    
-            if (!in_array($donation->status, ['disetujui', 'selesai'])) {
-                return redirect()->back()
-                    ->with('error', 'Bukti hanya tersedia untuk donasi yang disetujui atau selesai.');
-            }
-    
-            $pdf = PDF::loadView('admin.acc_donasi.bukti_terima', compact('donation'))
-                      ->setPaper('a4', 'portrait')
-                      ->setOptions([
-                          'isHtml5ParserEnabled' => true,
-                          'isRemoteEnabled' => true,
-                          'isJavascriptEnabled' => true
-                      ]);
-    
-            return $pdf->stream('bukti_terima_donasi_'.$donation->id_kirim.'.pdf', [
-                'Attachment' => false
-            ]);
-    
-        } catch (\Exception $e) {
+{
+    try {
+        $donation = KirimHewan::with(['user', 'kategori', 'admin'])
+            ->findOrFail($id);
+
+        if (!in_array($donation->status, ['disetujui', 'selesai'])) {
             return redirect()->back()
-                ->with('error', 'Error: ' . $e->getMessage());
+                ->with('error', 'Bukti hanya tersedia untuk donasi yang disetujui atau selesai.');
         }
+
+        $pdf = PDF::loadView('admin.acc_donasi.bukti_terima', compact('donation'))
+                  ->setPaper('a4', 'portrait')
+                  ->setOptions([
+                      'isHtml5ParserEnabled' => true,
+                      'isRemoteEnabled' => true,
+                      'isJavascriptEnabled' => true
+                  ]);
+
+        return $pdf->stream('bukti_terima_donasi_'.$donation->id_kirim.'.pdf');
+
+    } catch (\Exception $e) {
+        return redirect()->back()
+            ->with('error', 'Error: ' . $e->getMessage());
     }
+}
 
 public function downloadBuktiTerima($id)
 {
