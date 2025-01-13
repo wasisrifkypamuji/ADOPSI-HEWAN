@@ -51,6 +51,14 @@
                             @endif
                         </p>
 
+                        <!-- Tampilkan alasan penolakan jika ditolak -->
+                        @if($adoption->status_adopsi == 'Ditolak' && $adoption->alasan_penolakan)
+                                <div class="alert alert-danger py-2 mb-3">
+                                    <small><strong>Alasan penolakan:</strong><br>
+                                    {{ $adoption->alasan_penolakan }}</small>
+                                </div>
+                            @endif
+
                         <div class="button-container">
                             <div class="d-flex gap-2">
                                 @if($adoption->status_adopsi == 'pending')

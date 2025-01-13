@@ -25,7 +25,7 @@
                 <button class="cta-button">Adopsi Sekarang</button>
             </div>
             <div class="hero-image">
-                <img src="Images Admin\image 1.png" alt="Ilustrasi Orang dan Kucing">
+              <img src="{{ asset('Images Admin/image 1.png') }}" alt="Ilustrasi Orang dan Kucing">
             </div>
         </section>
     </main>

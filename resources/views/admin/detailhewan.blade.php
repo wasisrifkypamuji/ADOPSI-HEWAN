@@ -9,7 +9,7 @@
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
 </head>
 <body>
-    @extends('layout.navigasi')
+    @extends('layout.navigasiadmin')
 
     @section('content')
     <div class="container mt-4">
