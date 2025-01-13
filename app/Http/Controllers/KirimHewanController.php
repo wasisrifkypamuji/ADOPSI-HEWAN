@@ -41,10 +41,10 @@ public function store(Request $request)
             'deskripsi' => 'required|string',
             'usia' => 'required|string',
             'gender' => 'required|in:Jantan,Betina',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg',
             'video' => 'nullable|mimes:mp4,mov,avi|max:20480',
-            'surat_perjanjian' => 'required|mimes:pdf|max:2048',
-            'surat_keterangan_sehat' => 'required|mimes:pdf|max:2048',
+            'surat_perjanjian' => 'required|mimes:pdf',
+            'surat_keterangan_sehat' => 'required|mimes:pdf',
         ]);
 
         DB::beginTransaction();

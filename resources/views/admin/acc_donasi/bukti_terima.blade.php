@@ -81,7 +81,7 @@
             <p>Jakarta, {{ date('d F Y') }}</p>
             <p>Admin FindPet,</p>
             <div class="signature-space"></div>
-            <p>( {{ Auth::guard('admin')->user()->nama }} )</p>
+            <p>( {{ $donation->admin ? $donation->admin->nama : 'Admin FindPet' }} )</p>
         </div>
     </div>
 
