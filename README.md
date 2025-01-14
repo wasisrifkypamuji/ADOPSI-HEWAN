@@ -64,3 +64,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+=====REVISI CUYYYYYYYYY========
+- ubah file pdf menjadi word
+- user yang melakukan donasi tdk bisa melakukan adopsi hewan sendiri
+- perbaiki formulir adopsi hewan agar jawaban lebihh relevan
+- bukti serah terima hewan adopsi
+- laporan adopsi hewan di user yang mengirimkan hewan
+- edit hewan yang input hewan
+- laporan user/admin bisa diprint
